@@ -1,0 +1,23 @@
+<h1>Listing payment_gateways</h1>
+
+<table cellpadding="0">
+  <tr class="table-header">
+    <th>Name</th>
+    <th>Description</th>
+    <th>Disabled</th>
+    <th>Actions</th>
+  </tr>
+
+<% @payment_gateways.each do |payment_gateway| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= payment_gateway.website.present? ? link_to(payment_gateway.name, payment_gateway.website) : payment_gateway.name %></td>
+    <td class="text"><%= payment_gateway.description %></td>
+    <td><%= image_for(payment_gateway.disabled) %></td>
+    <td class="action"><%= link_to icon_for('show'), payment_gateway %> <%= link_to icon_for('edit'), edit_payment_gateway_path(payment_gateway) %> <%= link_to icon_for('delete'), payment_gateway, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment gateway', new_payment_gateway_path %>

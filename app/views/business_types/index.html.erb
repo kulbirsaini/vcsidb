@@ -1,0 +1,23 @@
+<h1>Listing business_types</h1>
+
+<table cellpadding="0">
+  <tr class="table-header">
+    <th>Name</th>
+    <th>Description</th>
+    <th>Disabled</th>
+    <th>Action</th>
+  </tr>
+
+<% @business_types.each do |business_type| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= business_type.name %></td>
+    <td class="text"><%= business_type.description %></td>
+    <td><%= image_for(business_type.disabled) %></td>
+    <td class="action"><%= link_to icon_for('show'), business_type %> <%= link_to icon_for('edit'), edit_business_type_path(business_type) %> <%= link_to icon_for('delete'), business_type, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Business type', new_business_type_path %>

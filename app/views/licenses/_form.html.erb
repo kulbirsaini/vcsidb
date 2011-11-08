@@ -1,0 +1,87 @@
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery('#license_start_date').datepicker();
+    jQuery('#license_end_date').datepicker();
+    jQuery('#license_renewal_date').datepicker();
+  });
+<% end %>
+<%= form_for(@license) do |f| %>
+  <% if @license.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@license.errors.count, "error") %> prohibited this license from being saved:</h2>
+
+      <ul>
+      <% @license.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="left">
+    <div class="field">
+      <%= f.label :client_id %><br />
+      <%= f.select :client_id, Client.all.map{ |c| [c.name || c.email, c.id] }, { :include_blank => 'Select Client' } %>
+    </div>
+    <div class="field">
+      <%= f.label :key %><br />
+      <%= f.text_field :key %>
+    </div>
+    <div class="field">
+      <%= f.label :start_date %><br />
+      <%= f.text_field :start_date %>
+    </div>
+    <div class="field">
+      <%= f.label :end_date %><br />
+      <%= f.text_field :end_date %>
+    </div>
+    <div class="field">
+      <%= f.label :renewal_date %><br />
+      <%= f.text_field :renewal_date %>
+    </div>
+    <div class="field">
+      <%= f.label :period %><br />
+      <%= f.number_field :period %>
+    </div>
+  </div>
+
+  <div class="left right-half">
+    <div class="field">
+      <%= f.label :num_servers %><br />
+      <%= f.number_field :num_servers %>
+    </div>
+    <div class="field">
+      <%= f.label :price %><br />
+      <%= f.text_field :price %>
+    </div>
+    <div class="field">
+      <%= f.label :paid %><br />
+      <%= f.text_field :paid %>
+    </div>
+    <div class="field">
+      <%= f.label :payment_gateway_id %><br />
+      <%= f.select :payment_gateway_id, PaymentGateway.all.map{ |p| [p.name, p.id] }, { :include_blank => 'Select Payment Gateway' } %>
+    </div>
+    <div class="field">
+      <%= f.label :renewal_reminders %><br />
+      <%= f.select :renewal_reminders, 0.upto(3).map{ |i| [i, i] } %>
+    </div>
+    <div class="field bool left">
+      <%= f.label :trial %><br />
+      <%= f.check_box :trial %>
+    </div>
+    <div class="field bool left">
+      <%= f.label :expired %><br />
+      <%= f.check_box :expired %>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

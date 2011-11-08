@@ -1,4 +1,14 @@
 Csidb::Application.routes.draw do
+  resources :countries
+
+  resources :business_types
+  resources :payment_gateways
+  resources :servers
+  resources :licenses
+  resources :clients
+  devise_for :users
+  root :to => 'clients#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

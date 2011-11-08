@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @payment_gateway.name %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @payment_gateway.website %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @payment_gateway.description %>
+</p>
+
+<p>
+  <b>Disabled:</b>
+  <%= @payment_gateway.disabled %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_gateway_path(@payment_gateway) %> |
+<%= link_to 'Back', payment_gateways_path %>

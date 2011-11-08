@@ -2,13 +2,23 @@
 <html>
 <head>
   <title>Csidb</title>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag params[:controller] %>
+
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="container">
+    <div id="menu">
+      <%= render "shared/menu" %>
+    </div>
+    <div class="clear"></div>
+    <div id="notifications">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+    <%= yield %>
+  </div>
 </body>
 </html>

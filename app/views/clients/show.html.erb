@@ -1,0 +1,70 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @client.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @client.email %>
+</p>
+
+<p>
+  <b>Company:</b>
+  <%= @client.company %>
+</p>
+
+<p>
+  <b>Business type:</b>
+  <%= @client.business_type.try(:name) %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @client.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @client.state %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @client.country.try(:name) %>
+</p>
+
+<p>
+  <b>Other emails:</b>
+  <%= @client.other_emails %>
+</p>
+
+<p>
+  <b>Payment gateway:</b>
+  <%= @client.payment_gateway.try(:name) %>
+</p>
+
+<p>
+  <b>Expired:</b>
+  <%= image_for(@client.expired) %>
+</p>
+
+<p>
+  <b>Reseller:</b>
+  <%= image_for(@client.reseller) %>
+</p>
+
+<p>
+  <b>Parent:</b>
+  <%= @client.parent.try(:name) %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @client.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

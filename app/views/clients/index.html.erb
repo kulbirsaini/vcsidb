@@ -1,0 +1,41 @@
+<h1>Listing clients</h1>
+
+<table cellpadding="0">
+  <tr class="table-header">
+    <th>Name</th>
+    <th>Email</th>
+    <th>Company</th>
+    <th>Business Type</th>
+    <th>City/State</th>
+    <th>Country</th>
+    <th>Other emails</th>
+    <th>Payment Gateway</th>
+    <th>Expired</th>
+    <th>Reseller</th>
+    <th>Parent</th>
+    <th>Notes</th>
+    <th>Actions</th>
+  </tr>
+
+<% @clients.each do |client| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= client.name %></td>
+    <td><%= client.email %></td>
+    <td><%= client.company %></td>
+    <td><%= client.business_type.try(:name) %></td>
+    <td><%= client.city_state %></td>
+    <td><%= client.country.try(:name) %></td>
+    <td><%= client.other_emails %></td>
+    <td><%= client.payment_gateway.try(:name) %></td>
+    <td><%= image_for(client.expired) %></td>
+    <td><%= image_for(client.reseller) %></td>
+    <td><%= client.parent.try(:name) %></td>
+    <td><abbr title="<%= client.notes %>">...</abbr></td>
+    <td class="action"><%= link_to icon_for('show'), client %> <%= link_to icon_for('edit'), edit_client_path(client) %> <%= link_to icon_for('delete'), client, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Client', new_client_path %>

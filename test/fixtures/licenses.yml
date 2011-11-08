@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  client_id: 1
+  key: MyString
+  start_date: 2011-11-04 17:33:09
+  end_date: 2011-11-04 17:33:09
+  period: 1
+  renewal_date: 2011-11-04 17:33:09
+  trial: false
+  expired: false
+  num_servers: 1
+  price: 1.5
+  paid: 1.5
+  payment_gateway_id: 1
+  notes: MyText
+  renewal_reminders: 1
+
+two:
+  client_id: 1
+  key: MyString
+  start_date: 2011-11-04 17:33:09
+  end_date: 2011-11-04 17:33:09
+  period: 1
+  renewal_date: 2011-11-04 17:33:09
+  trial: false
+  expired: false
+  num_servers: 1
+  price: 1.5
+  paid: 1.5
+  payment_gateway_id: 1
+  notes: MyText
+  renewal_reminders: 1

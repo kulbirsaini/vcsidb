@@ -1,0 +1,75 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Client:</b>
+  <%= @license.client_id %>
+</p>
+
+<p>
+  <b>Key:</b>
+  <%= @license.key %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @license.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @license.end_date %>
+</p>
+
+<p>
+  <b>Period:</b>
+  <%= @license.period %>
+</p>
+
+<p>
+  <b>Renewal date:</b>
+  <%= @license.renewal_date %>
+</p>
+
+<p>
+  <b>Trial:</b>
+  <%= @license.trial %>
+</p>
+
+<p>
+  <b>Expired:</b>
+  <%= @license.expired %>
+</p>
+
+<p>
+  <b>Num servers:</b>
+  <%= @license.num_servers %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @license.price %>
+</p>
+
+<p>
+  <b>Paid:</b>
+  <%= @license.paid %>
+</p>
+
+<p>
+  <b>Payment gateway:</b>
+  <%= @license.payment_gateway_id %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @license.notes %>
+</p>
+
+<p>
+  <b>Renewal reminders:</b>
+  <%= @license.renewal_reminders %>
+</p>
+
+
+<%= link_to 'Edit', edit_license_path(@license) %> |
+<%= link_to 'Back', licenses_path %>

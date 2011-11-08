@@ -1,0 +1,85 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @server.email %>
+</p>
+
+<p>
+  <b>License:</b>
+  <%= @server.license_id %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%= @server.client_id %>
+</p>
+
+<p>
+  <b>Version:</b>
+  <%= @server.version %>
+</p>
+
+<p>
+  <b>Revision:</b>
+  <%= @server.revision %>
+</p>
+
+<p>
+  <b>Trial:</b>
+  <%= @server.trial %>
+</p>
+
+<p>
+  <b>Macs:</b>
+  <%= @server.macs %>
+</p>
+
+<p>
+  <b>Ips:</b>
+  <%= @server.ips %>
+</p>
+
+<p>
+  <b>Python:</b>
+  <%= @server.python %>
+</p>
+
+<p>
+  <b>Squid:</b>
+  <%= @server.squid %>
+</p>
+
+<p>
+  <b>Os name:</b>
+  <%= @server.os_name %>
+</p>
+
+<p>
+  <b>Os:</b>
+  <%= @server.os_id %>
+</p>
+
+<p>
+  <b>Os version:</b>
+  <%= @server.os_version %>
+</p>
+
+<p>
+  <b>System:</b>
+  <%= @server.system %>
+</p>
+
+<p>
+  <b>Arch:</b>
+  <%= @server.arch %>
+</p>
+
+<p>
+  <b>Other:</b>
+  <%= @server.other %>
+</p>
+
+
+<%= link_to 'Edit', edit_server_path(@server) %> |
+<%= link_to 'Back', servers_path %>

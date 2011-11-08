@@ -1,0 +1,41 @@
+<h1>Listing licenses</h1>
+
+<table cellpadding="0">
+  <tr class="table-header">
+    <th>Client</th>
+    <th>Key</th>
+    <th>Start</th>
+    <th>Renewal</th>
+    <th>Servers</th>
+    <th>Trial</th>
+    <th>Expired</th>
+    <th>Price</th>
+    <th>Paid</th>
+    <th>Payment Gateway</th>
+    <th>Reminders</th>
+    <th>Notes</th>
+    <th>Action</th>
+  </tr>
+
+<% @licenses.each do |license| %>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td><%= license.name %></td>
+    <td><%= license.key %></td>
+    <td><%= license.start_date_nice %></td>
+    <td><%= license.renewal_date_nice %></td>
+    <td><%= license.num_servers %></td>
+    <td><%= image_for(license.trial) %></td>
+    <td><%= image_for(license.expired) %></td>
+    <td><%= license.price %></td>
+    <td><%= license.paid %></td>
+    <td><%= license.payment_gateway.try(:name) %></td>
+    <td><%= license.renewal_reminders %></td>
+    <td><abbr title="<%= license.notes %>">...</abbr></td>
+    <td class="action"><%= link_to icon_for('show'), license %> <%= link_to icon_for('edit'), edit_license_path(license) %> <%= link_to icon_for('delete'), license, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New License', new_license_path %>

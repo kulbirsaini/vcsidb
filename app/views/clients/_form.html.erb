@@ -1,0 +1,76 @@
+<%= form_for(@client) do |f| %>
+  <% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+      <% @client.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="left">
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :company %><br />
+      <%= f.text_field :company %>
+    </div>
+    <div class="field">
+      <%= f.label :other_emails %><br />
+      <%= f.text_field :other_emails %>
+    </div>
+    <div class="field">
+      <%= f.label :business_type_id %><br />
+      <%= f.select :business_type_id, BusinessType.all.map{ |b| [b.name, b.id] }, { :include_blank => 'Select Business Type' } %>
+    </div>
+    <div class="field">
+      <%= f.label :expired %><br />
+      <%= f.check_box :expired %>
+    </div>
+  </div>
+
+  <div class="left right-half">
+    <div class="field">
+      <%= f.label :city %><br />
+      <%= f.text_field :city %>
+    </div>
+    <div class="field">
+      <%= f.label :state %><br />
+      <%= f.text_field :state %>
+    </div>
+    <div class="field">
+      <%= f.label :country_id %><br />
+      <%= f.select :country_id, Country.all.map{ |c| [c.name, c.id] }, { :include_blank => 'Select Country' } %>
+    </div>
+    <div class="field">
+      <%= f.label :payment_gateway_id %><br />
+      <%= f.select :payment_gateway_id, PaymentGateway.all.map{ |p| [p.name, p.id] }, { :include_blank => 'Select Payment Gateway' } %>
+    </div>
+    <div class="field">
+      <%= f.label :parent_id, 'Reseller' %><br />
+      <%= f.select :parent_id, Client.reseller.all.map{ |c| [c.name || c.email, c.id] }, { :include_blank => 'Select Reseller' } %>
+    </div>
+    <div class="field">
+      <%= f.label :reseller %><br />
+      <%= f.check_box :reseller %>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <div class="field">
+    <%= f.label :notes %><br />
+    <%= f.text_area :notes %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
