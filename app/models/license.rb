@@ -31,13 +31,13 @@ class License < ActiveRecord::Base
     email ||= ''
 
     license = License.where(:key => key).first
-    return true if license and license.expired
+    return license.expired if license
 
-    client = Client.where(:email => email).first
-    return true if client and client.expired
+    c = Client.where(:email => email).first
+    return c.expired if c
 
     clients = Client.where(:other_emails.matches => "%#{email}%").all
-    return true if clients.size == 1 and clients.first.expired
+    return clients.first.expired if clients.size == 1
 
     message = "Email #{email} matched with other_emails in more than two clients when checking for expired clients."
     clients.each do |c|
