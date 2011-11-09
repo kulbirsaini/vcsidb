@@ -13,6 +13,8 @@
     <th>Expired</th>
     <th>Reseller</th>
     <th>Parent</th>
+    <th>Flag</th>
+    <th>Message</th>
     <th>Notes</th>
     <th>Actions</th>
   </tr>
@@ -30,6 +32,8 @@
     <td><%= image_for(client.expired) %></td>
     <td><%= image_for(client.reseller) %></td>
     <td><%= client.parent.try(:name) %></td>
+    <td><%= image_for(server.flag) %></td>
+    <td><%= server.message %></td>
     <td><abbr title="<%= client.notes %>">...</abbr></td>
     <td class="action"><%= link_to icon_for('show'), client %> <%= link_to icon_for('edit'), edit_client_path(client) %> <%= link_to icon_for('delete'), client, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
