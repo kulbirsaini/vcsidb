@@ -13,6 +13,14 @@ class LicensesController < ApplicationController
     end
   end
 
+  def expired
+    if License.check_expiry(params[:id], params[:e])
+      render :text => 'YES'
+    else
+      render :text => ''
+    end
+  end
+
   # GET /licenses/1
   # GET /licenses/1.json
   def show

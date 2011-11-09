@@ -10,4 +10,5 @@
 require_relative 'data/country_codes'
 require_relative 'data/payment_gateways'
 require_relative 'data/business_types'
-#require_relative 'data/users'
+require_relative 'data/users'
+require_relative 'data/client_license'

@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20111105061005) do
     t.boolean  "reseller"
     t.integer  "parent_id"
     t.text     "notes"
+    t.boolean  "flag"
+    t.text     "message"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
