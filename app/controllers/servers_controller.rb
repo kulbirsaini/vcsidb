@@ -1,7 +1,7 @@
 class ServersController < ApplicationController
 
-  before_filter :paranoid_authentication
-  before_filter :authenticate_user!
+  before_filter :paranoid_authentication, :except => [:create]
+  before_filter :authenticate_user!, :except => [:create]
   # GET /servers
   # GET /servers.json
   def index

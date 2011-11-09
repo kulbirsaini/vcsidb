@@ -1,7 +1,7 @@
 class LicensesController < ApplicationController
 
-  before_filter :paranoid_authentication
-  before_filter :authenticate_user!
+  before_filter :paranoid_authentication, :except => [:expired]
+  before_filter :authenticate_user!, :except => [:expired]
   # GET /licenses
   # GET /licenses.json
   def index
