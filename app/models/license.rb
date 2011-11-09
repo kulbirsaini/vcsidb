@@ -28,7 +28,7 @@ class License < ActiveRecord::Base
 
   def self.check_expiry(key, email)
     key = (key || '').first(40)
-    email ||= ''
+    email = (email || '').downcase
 
     license = License.where(:key => key).first
     return license.expired if license
