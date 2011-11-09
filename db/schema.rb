@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20111105061005) do
     t.string   "os_version"
     t.string   "system"
     t.string   "arch"
-    t.text     "other"
+    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
