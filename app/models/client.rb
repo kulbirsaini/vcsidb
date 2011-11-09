@@ -43,7 +43,7 @@ class Client < ActiveRecord::Base
     end
 
     if reseller_email
-      reseller = Client.where(:email => reseller_email, :reseller => true).first
+      reseller = Client.where(:email => reseller_email).first
       return Client.create(:email => email, :parent_id => reseller.id) if reseller
     end
 
