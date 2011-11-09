@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-file_path = (Rails.root + 'db/migrate/base_client_license_data.txt').to_path
+file_path = (Rails.root + 'db/data/base_client_license_data.txt').to_path
 
 data = YAML.load(File.read(file_path))
 
