@@ -16,7 +16,7 @@ class CreateServers < ActiveRecord::Migration
       t.string :os_version
       t.string :system
       t.string :arch
-      t.text :other
+      t.text :notes
 
       t.timestamps
     end
