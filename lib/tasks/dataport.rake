@@ -7,7 +7,7 @@ namespace :dataport do
     end
     clients = []
     Client.all.each do |c|
-      clients << { :name=> c.name, :email=> c.email, :company=> c.company, :business_type_id=>c.business_type_id, :city=>c.city, :state=>c.state, :country_id=>c.country_id, :other_emails=>c.other_emails, :payment_gateway_id=>c.payment_gateway_id, :expired=>c.expired, :reseller=>c.reseller, :parent_id=>c.parent_id, :notes=> c.notes, :flag=>c.flag, :message=> c.message}
+      clients << { :name=> c.name, :email=> c.email, :company=> c.company, :business_type_id=>c.business_type_id, :city=>c.city, :state=>c.state, :country_id=>c.country_id, :other_emails=>c.other_emails, :payment_gateway_id=>c.payment_gateway_id, :expired=>c.expired, :reseller=>c.reseller, :parent_id=>c.parent.try(:email), :notes=> c.notes, :flag=>c.flag, :message=> c.message}
     end
 
     file = File.open(Rails.root + 'db/data/client_licenses.data', 'w')
@@ -22,6 +22,8 @@ namespace :dataport do
     License.delete_all
     clients.each do |c|
       client = Client.where(:email => c[:email]).first
+      parent_id = (Client.where(:email => c[:parent_id]).first || Client.create(:email => c[:parent_id])).id if c[:parent_id].present?
+      c[:parent_id] = parent_id || nil
       if client
         client.update_attributes(c)
       else
