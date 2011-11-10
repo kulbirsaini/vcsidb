@@ -35,6 +35,8 @@ class License < ActiveRecord::Base
     license = License.where(:key => key).first
     return license.expired if license
 
+    return false unless email.present?
+
     c = Client.where(:email => email).first
     return c.expired if c
 
