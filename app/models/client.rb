@@ -12,6 +12,8 @@ class Client < ActiveRecord::Base
   scope :reseller, where(:reseller => true)
   default_scope :order => 'created_at DESC'
 
+  validates_uniqueness_of :email
+
   def city_state
     return "#{city.titleize}, #{state.titleize}" if city.present? and state.present?
     city || state

@@ -101,7 +101,7 @@ class ServersController < ApplicationController
     end
 
     server[:client_id] = Client.find_or_create(email, key).try(:id)
-    server[:trial] = @license.try(:trial) == true or info[:trial] == '1' or email == 'sisland_demo@sislandsoft.com'
+    server[:trial] = info[:trial] == '1' or email == 'sisland_demo@sislandsoft.com' or email == 'demo@sislandsoft.com' or @license.try(:trial) == true
     server[:version] = info[:version] || ''
     server[:revision] = info[:revision] || ''
     server[:os_name] = info[:os_name] || ''
