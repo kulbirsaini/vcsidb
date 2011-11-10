@@ -1,52 +1,7 @@
-p, div, table, img, a, ul, ul, ol {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-ul li {
-  list-style-type: none;
-}
-
-a, a:visited {
-  color: #000;
-}
-
-a:hover {
-  color: #666;
-}
-
-a, a:hover, a:visited {
-  text-decoration: none;
-  background: none;
-}
-
-.clear {
-  clear: both;
-}
-
-input[type=text], input[type=number], textarea, select {
-  width: 250px;
+body {
+  padding: 60px 0px 20px 10px;
 }
 
 textarea {
-  height: 50px;
-}
-
-body {
-  background: url('body_bg.png') repeat;
-  margin: 20px;
-
-  #container {
-    margin: 0 auto;
-    padding:10px;
-  }
-}
-
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
+  height: 40px;
 }

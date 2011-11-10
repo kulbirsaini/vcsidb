@@ -1,88 +1,88 @@
 <%= form_for(@server) do |f| %>
   <% if @server.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h2>
+    <div class="row">
+      <div class="span14 offset1">
+        <div id="error_explanation" class="alert-message block-message error">
+          <h3><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h3>
 
-      <ul>
-      <% @server.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+          <% @server.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 
-  <div class="left">
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.text_field :email %>
+  <div class='row show-grid'>
+    <div class="span8">
+      <div class="clearfix">
+        <%= f.label :email %>
+        <div class="input"><%= f.text_field :email %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :license_id %>
+        <div class="input"><%= f.select :license_id, License.all.map{ |l| [l.client.name || l.client.email, l.id] }, { :include_blank => 'Select Licensee' } %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :client_id %>
+        <div class="input"><%= f.select :client_id, Client.all.map{ |c| [c.name || c.email, c.id] }, { :include_blank => 'Select Client' } %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :version %>
+        <div class="input"><%= f.text_field :version %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :revision %>
+        <div class="input"><%= f.text_field :revision %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :python %>
+        <div class="input"><%= f.text_field :python %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :macs %>
+        <div class="input"><%= f.text_area :macs %></div>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :license_id %><br />
-      <%= f.select :license_id, License.all.map{ |l| [l.client.name || l.client.email, l.id] }, { :include_blank => 'Select Licensee' } %>
-    </div>
-    <div class="field">
-      <%= f.label :client_id %><br />
-      <%= f.select :client_id, Client.all.map{ |c| [c.name || c.email, c.id] }, { :include_blank => 'Select Client' } %>
-    </div>
-    <div class="field">
-      <%= f.label :version %><br />
-      <%= f.text_field :version %>
-    </div>
-    <div class="field">
-      <%= f.label :revision %><br />
-      <%= f.text_field :revision %>
-    </div>
-    <div class="field">
-      <%= f.label :python %><br />
-      <%= f.text_field :python %>
-    </div>
-  </div>
 
-  <div class="left right-half">
-    <div class="field">
-      <%= f.label :squid %><br />
-      <%= f.text_field :squid %>
-    </div>
-    <div class="field">
-      <%= f.label :os_name %><br />
-      <%= f.text_field :os_name %>
-    </div>
-    <div class="field">
-      <%= f.label :os_id %><br />
-      <%= f.text_field :os_id %>
-    </div>
-    <div class="field">
-      <%= f.label :os_version %><br />
-      <%= f.text_field :os_version %>
-    </div>
-    <div class="field">
-      <%= f.label :system %><br />
-      <%= f.text_field :system %>
-    </div>
-    <div class="field">
-      <%= f.label :arch %><br />
-      <%= f.text_field :arch %>
+    <div class="span8">
+      <div class="clearfix">
+        <%= f.label :squid %>
+        <div class="input"><%= f.text_field :squid %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :os_name %>
+        <div class="input"><%= f.text_field :os_name %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :os_id %>
+        <div class="input"><%= f.text_field :os_id %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :os_version %>
+        <div class="input"><%= f.text_field :os_version %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :system %>
+        <div class="input"><%= f.text_field :system %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :arch %>
+        <div class="input"><%= f.text_field :arch %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :ips %>
+        <div class="input"><%= f.text_area :ips %></div>
+      </div>
     </div>
   </div>
-
-  <div class="clear"></div>
-  <div class="field">
-    <%= f.label :macs %><br />
-    <%= f.text_area :macs %>
-  </div>
-  <div class="field">
-    <%= f.label :ips %><br />
-    <%= f.text_area :ips %>
-  </div>
-  <div class="field">
-    <%= f.label :other %><br />
-    <%= f.text_area :other %>
-  </div>
-  <div class="field">
-    <%= f.label :trial %><br />
-    <%= f.check_box :trial %>
+  <div class="clearfix">
+    <%= f.label :trial %>
+    <div class="input"><%= f.check_box :trial %></div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class => 'btn primary' %>
   </div>
 <% end %>

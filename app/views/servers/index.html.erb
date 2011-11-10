@@ -1,6 +1,13 @@
-<h1>Listing servers</h1>
+<div class="row">
+  <div class="span2">
+    <h1>Servers</h1>
+  </div>
+  <div class="span3">
+    <%= link_to 'New Server', new_server_path, { :class => 'btn large primary' } %>
+  </div>
+</div>
 
-<table cellpadding="0">
+<table class="condensed-table zebra-striped bordered-table">
   <tr class="table-header">
     <th>Email</th>
     <th>License</th>
@@ -8,14 +15,12 @@
     <th>Version</th>
     <th>Revision</th>
     <th>Trial</th>
-    <th>Macs</th>
-    <th>Ips</th>
+    <th>MAC Address</th>
+    <th>IP Address</th>
     <th>Python</th>
     <th>Squid</th>
     <th>OS</th>
-    <th>OS ID</th>
-    <th>System</th>
-    <th>Arch</th>
+    <th>System/Arch</th>
     <th>Created</th>
     <th>Updated</th>
     <th>Action</th>
@@ -23,7 +28,7 @@
 
 <% @servers.each do |server| %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= server.email %></td>
+    <td><abbr title="<%= server.email %>"><%= (server.email || '').last(48) %></abbr></td>
     <td><abbr title='<%= "#{server.licensee_full_name} (#{server.licensee_email})" %>'><%= server.licensee_name %></abbr></td>
     <td><abbr title='<%= "#{server.client_full_name} (#{server.client_email})" %>'><%= server.client_name %></abbr></td>
     <td><%= server.version %></td>
@@ -33,17 +38,11 @@
     <td><%= (server.ips.present? and server.ips.size > MAX_MAC_LENGTH) ? raw("<abbr title='#{server.ips}'>#{server.ips.first(MAX_MAC_LENGTH)}</abbr>") : server.ips %></td>
     <td><%= server.python %></td>
     <td><%= server.squid %></td>
-    <td><%= "#{server.os_name} #{server.os_version}" %></td>
-    <td><%= server.os_id %></td>
-    <td><%= server.system %></td>
-    <td><%= server.arch %></td>
-    <td><%= server.created_at.strftime('%b %d') %></td>
-    <td><%= server.updated_at.strftime('%b %d %H:%M:%S') %></td>
+    <td><%= "#{server.os_name.try(:titleize)} #{server.os_version}" %></td>
+    <td><%= server.system %> / <%= server.arch %></td>
+    <td><%= server.created_at.strftime('%b %d %H:%M') %></td>
+    <td><%= server.updated_at.strftime('%b %d %H:%M') %></td>
     <td class="action"><%= link_to icon_for('show'), server %> <%= link_to icon_for('edit'), edit_server_path(server) %> <%= link_to icon_for('delete'), server, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Server', new_server_path %>

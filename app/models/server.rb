@@ -2,6 +2,8 @@ class Server < ActiveRecord::Base
   belongs_to :license
   belongs_to :client
 
+  default_scope :order => 'updated_at DESC'
+
   def licensee_email
     license.try(:client).try(:email)
   end

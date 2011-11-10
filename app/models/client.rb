@@ -10,6 +10,7 @@ class Client < ActiveRecord::Base
   belongs_to :payment_gateway
 
   scope :reseller, where(:reseller => true)
+  default_scope :order => 'created_at DESC'
 
   def city_state
     return "#{city.titleize}, #{state.titleize}" if city.present? and state.present?

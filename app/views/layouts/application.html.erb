@@ -8,16 +8,36 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="container">
-    <div id="menu">
-      <%= render "shared/menu" %>
+  <div class="topbar">
+    <div class="fill">
+      <div class="container-fluid">
+        <a class="brand" href="/">CSIDB</a>
+        <%= render "shared/menu" %>
+      </div>
     </div>
-    <div class="clear"></div>
-    <div id="notifications">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+  </div>
+  <div class="container-fluid">
+    <div class="content-fluid">
+      <div class="row">
+        <div class="span16">
+          <% if notice.present? %>
+            <div class="alert-message success">
+              <a class="close" href="#" onClick="jQuery(this).parent().fadeOut(); return false;">×</a>
+              <p><%= notice %></p>
+            </div>
+          <% end %>
+          <% if alert.present? %>
+            <div class="alert-message error">
+              <a class="close" href="#" onClick="jQuery(this).parent().fadeOut(); return false;">×</a>
+              <p><%= alert %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <%= yield %>
+      </div>
     </div>
-    <%= yield %>
   </div>
 </body>
 </html>

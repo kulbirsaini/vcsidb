@@ -8,6 +8,8 @@ class License < ActiveRecord::Base
   validates_length_of :key, :is => 40
   validates_uniqueness_of :key
 
+  default_scope :order => 'created_at DESC'
+
   def start_date_nice
     start_date.present? ?  start_date.strftime('%b %d, %y') : ''
   end
