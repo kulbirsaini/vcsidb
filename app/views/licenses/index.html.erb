@@ -5,6 +5,9 @@
   <div class="span3">
     <%= link_to 'New License', new_license_path, { :class => 'btn large primary' } %>
   </div>
+  <div class="span14">
+    <%= paginate @licenses %>
+  </div>
 </div>
 
 <table class="condensed-table zebra-striped bordered-table">

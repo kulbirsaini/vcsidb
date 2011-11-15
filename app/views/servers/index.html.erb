@@ -5,6 +5,9 @@
   <div class="span3">
     <%= link_to 'New Server', new_server_path, { :class => 'btn large primary' } %>
   </div>
+  <div class="span14">
+    <%= paginate @servers %>
+  </div>
 </div>
 
 <table class="condensed-table zebra-striped bordered-table">

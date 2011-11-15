@@ -5,6 +5,9 @@
   <div class="span3">
     <%= link_to 'New Client', new_client_path, { :class => 'btn large primary' } %>
   </div>
+  <div class="span14">
+    <%= paginate @clients %>
+  </div>
 </div>
 
 <table class="condensed-table zebra-striped bordered-table">
@@ -34,4 +37,4 @@
   </tr>
 <% end %>
 </table>
-
+<br />
