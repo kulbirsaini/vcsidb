@@ -1,0 +1,5 @@
+<% if current_page.first? %>
+  <li class="first disabled"><%= link_to icon_for('first-disabled', 'First'), '#' %></li>
+<% else %>
+  <li class="first"><%= link_to icon_for('first', 'First'), url, :remote => remote %></li>
+<% end %>

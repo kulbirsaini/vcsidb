@@ -2,10 +2,12 @@
   <div class="span2">
     <h1>Servers</h1>
   </div>
-  <div class="span3">
-    <%= link_to 'New Server', new_server_path, { :class => 'btn large primary' } %>
+  <div class="span1">
+    <div class="new pagination">
+      <ul><li><%= link_to icon_for('new'), new_server_path, { :title => 'New Server' } %></li></ul>
+    </div>
   </div>
-  <div class="span14">
+  <div class="span14 pages">
     <%= paginate @servers %>
   </div>
 </div>
@@ -36,7 +38,7 @@
     <td><abbr title='<%= "#{server.client_full_name} (#{server.client_email})" %>'><%= server.client_name %></abbr></td>
     <td><%= server.version %></td>
     <td><%= server.revision %></td>
-    <td><%= image_for(server.trial) %></td>
+    <td class="center"><%= server.trial ? icon_for('star-gray', 'Trial') : icon_for('star', 'Premium') %></td>
     <td><%= (server.macs.present? and server.macs.size>MAX_MAC_LENGTH) ? raw("<abbr title='#{server.macs}'>#{server.macs.first(MAX_MAC_LENGTH)}</abbr>") : server.macs%></td>
     <td><%= (server.ips.present? and server.ips.size > MAX_MAC_LENGTH) ? raw("<abbr title='#{server.ips}'>#{server.ips.first(MAX_MAC_LENGTH)}</abbr>") : server.ips %></td>
     <td><%= server.python %></td>
@@ -45,7 +47,7 @@
     <td><%= server.system %> / <%= server.arch %></td>
     <td><%= server.created_at.strftime('%b %d %H:%M') %></td>
     <td><%= server.updated_at.strftime('%b %d %H:%M') %></td>
-    <td class="action"><%= link_to icon_for('show'), server %> <%= link_to icon_for('edit'), edit_server_path(server) %> <%= link_to icon_for('delete'), server, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="action"><%= link_to icon_for('show', 'Show'), server %> <%= link_to icon_for('edit', 'Edit'), edit_server_path(server) %> <%= link_to icon_for('delete', 'Delete'), server, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

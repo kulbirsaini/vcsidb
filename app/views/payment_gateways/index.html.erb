@@ -2,8 +2,10 @@
   <div class="span5">
     <h1>Payment Gateways</h1>
   </div>
-  <div class="span4">
-    <%= link_to 'New Payment Gateway', new_payment_gateway_path, { :class => 'btn large primary' } %>
+  <div class="span1">
+    <div class="new pagination">
+      <ul><li><%= link_to icon_for('new'), new_payment_gateway_path, { :title =>  'New Payment Gateway' } %></li></ul>
+    </div>
   </div>
 </div>
 
@@ -19,8 +21,8 @@
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= payment_gateway.website.present? ? link_to(payment_gateway.name, payment_gateway.website) : payment_gateway.name %></td>
     <td class="text"><%= payment_gateway.description %></td>
-    <td><%= image_for(payment_gateway.disabled) %></td>
-    <td class="action"><%= link_to icon_for('show'), payment_gateway %> <%= link_to icon_for('edit'), edit_payment_gateway_path(payment_gateway) %> <%= link_to icon_for('delete'), payment_gateway, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="center"><%= image_for(payment_gateway.disabled) %></td>
+    <td class="action"><%= link_to icon_for('show', 'Show'), payment_gateway %> <%= link_to icon_for('edit', 'Edit'), edit_payment_gateway_path(payment_gateway) %> <%= link_to icon_for('delete', 'Delete'), payment_gateway, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

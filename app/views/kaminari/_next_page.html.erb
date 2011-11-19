@@ -1,5 +1,5 @@
 <% if current_page.last? %>
-  <li class="next disabled"><%= link_to raw('Next &rarr;'), '#' %><li>
+  <li class="next disabled"><%= link_to icon_for('next-disabled', 'Next'), '#' %></li>
 <% else %>
-  <li class="next"><%= link_to raw('Next &rarr;'), url, :remote => remote %></li>
+  <li class="next"><%= link_to icon_for('next', 'Next'), url, :remote => remote %></li>
 <% end %>

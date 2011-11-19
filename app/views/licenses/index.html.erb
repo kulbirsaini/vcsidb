@@ -2,10 +2,12 @@
   <div class="span3">
     <h1>Licenses</h1>
   </div>
-  <div class="span3">
-    <%= link_to 'New License', new_license_path, { :class => 'btn large primary' } %>
+  <div class="span1">
+    <div class="new pagination">
+      <ul><li><%= link_to icon_for('new'), new_license_path, { :title => 'New License' } %></li></ul>
+    </div>
   </div>
-  <div class="span14">
+  <div class="span14 pages">
     <%= paginate @licenses %>
   </div>
 </div>
@@ -31,9 +33,9 @@
     <td><%= license.renewal_date_nice %></td>
     <td><%= license.num_servers %></td>
     <td><%= license.servers.count %></td>
-    <td><%= image_for(license.trial) %></td>
-    <td><%= image_for(license.expired) %></td>
-    <td class="action"><%= link_to icon_for('show'), license %> <%= link_to icon_for('edit'), edit_license_path(license) %> <%= link_to icon_for('delete'), license, confirm: 'Are you sure?', method: :delete %></td>
+    <td class="center"><%= license.trial ? icon_for('star-gray', 'Trial') : icon_for('star', 'Premium') %></td>
+    <td class="center"><%= license.expired ? icon_for('flag-red', 'Expired') : icon_for('flag-green', 'Valid') %></td>
+    <td class="action"><%= link_to icon_for('show', 'Show'), license %> <%= link_to icon_for('edit', 'Edit'), edit_license_path(license) %> <%= link_to icon_for('delete', 'Delete'), license, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>

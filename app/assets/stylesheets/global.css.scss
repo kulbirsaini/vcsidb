@@ -1,9 +1,39 @@
 table {
+  th {
+    text-align: center;
+  }
+
   td.action {
-    min-width: 60px;
+    min-width: 80px;
+  }
+
+  td.center {
+    text-align: center;
   }
 }
 
 .pagination {
   margin: 0px auto !important;
+
+  li.next a, li.prev a, li.first a, li.last a {
+    line-height: 0px;
+    padding: 5px;
+  }
+
+  .next a {
+    border-right: 1px solid rgba(0, 0, 0, 0.15);
+  }
+}
+
+.span14.pages {
+  margin-left: 0px;
+}
+
+.new.pagination {
+  margin: 0 auto;
+
+  li a {
+    line-height: 0px;
+    padding: 5px;
+  }
 }
