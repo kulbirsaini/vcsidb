@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.page params[:page]
+    @clients = params[:q].present? ? Client.search(params[:q]).result.page(params[:page]) : Client.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

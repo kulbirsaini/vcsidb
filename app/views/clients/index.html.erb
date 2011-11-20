@@ -2,6 +2,18 @@
   <div class="span2">
     <h1>Clients</h1>
   </div>
+  <div class="span4">
+    <div class="search pagination">
+      <ul>
+        <li>
+          <%= search_form_for(Client.search({})) do |f| %>
+            <%= f.text_field :name_or_email_or_company_or_other_emails_or_notes_or_message_cont %>
+            <%= image_submit_tag(asset_path("icons/search.png")) %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="span1">
     <div class="new pagination">
       <ul><li><%= link_to icon_for('new'), new_client_path, { :title => 'New Client' } %></li></ul>

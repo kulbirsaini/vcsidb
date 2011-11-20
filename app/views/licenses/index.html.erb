@@ -2,6 +2,18 @@
   <div class="span3">
     <h1>Licenses</h1>
   </div>
+  <div class="span4">
+    <div class="search pagination">
+      <ul>
+        <li>
+          <%= search_form_for(License.search({})) do |f| %>
+            <%= f.text_field :key_or_notes_cont %>
+            <%= image_submit_tag(asset_path("icons/search.png")) %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="span1">
     <div class="new pagination">
       <ul><li><%= link_to icon_for('new'), new_license_path, { :title => 'New License' } %></li></ul>

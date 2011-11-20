@@ -5,7 +5,7 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.page params[:page]
+    @servers = params[:q].present? ? Server.search(params[:q]).result.page(params[:page]) : Server.page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

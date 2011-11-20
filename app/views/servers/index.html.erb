@@ -2,6 +2,18 @@
   <div class="span2">
     <h1>Servers</h1>
   </div>
+  <div class="span4">
+    <div class="search pagination">
+      <ul>
+        <li>
+          <%= search_form_for(Server.search({})) do |f| %>
+            <%= f.text_field :email_or_version_or_revision_or_macs_or_ips_or_python_or_squid_or_os_name_or_os_id_or_os_version_or_system_or_arch_cont %>
+            <%= image_submit_tag(asset_path("icons/search.png")) %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
   <div class="span1">
     <div class="new pagination">
       <ul><li><%= link_to icon_for('new'), new_server_path, { :title => 'New Server' } %></li></ul>

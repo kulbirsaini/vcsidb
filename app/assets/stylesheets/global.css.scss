@@ -37,3 +37,26 @@ table {
     padding: 5px;
   }
 }
+
+.search.pagination {
+  margin: 0 auto;
+
+  li form {
+    line-height: 0px;
+    padding: 3px;
+    margin-bottom: 0px;
+
+    input[type="image"] {
+      box-shadow: none;
+      margin-left: 190px;
+      border: 0px none;
+      width: 24px;
+      height: 24px;
+      margin-top: -29px;
+    }
+
+    input {
+      float: left;
+    }
+  }
+}
