@@ -1,8 +1,8 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
-    jQuery('#license_start_date').datepicker({ dateFormat: 'dd/mm/yy' });
-    jQuery('#license_end_date').datepicker({ dateFormat: 'dd/mm/yy' });
-    jQuery('#license_renewal_date').datepicker({ dateFormat: 'dd/mm/yy' });
+    jQuery('#license_start_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    jQuery('#license_end_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    jQuery('#license_renewal_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
   });
 <% end %>
 <%= form_for(@license) do |f| %>
