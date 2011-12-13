@@ -1,4 +1,5 @@
 Csidb::Application.routes.draw do
+  resources :payments
   resources :countries
   resources :business_types
   resources :payment_gateways

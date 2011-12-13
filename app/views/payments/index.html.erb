@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="span3">
+    <h1>Payments</h1>
+  </div>
+  <div class="span1">
+    <div class="new pagination">
+      <ul><li><%= link_to icon_for('new'), new_payment_path, { :title => 'New Payment' } %></li></ul>
+    </div>
+  </div>
+  <div class="span14 pages">
+    <%= paginate @payments %>
+  </div>
+</div>
+
+<table class="condensed-table zebra-striped bordered-table">
+  <tr>
+    <th>License</th>
+    <th>Date</th>
+    <th>Period</th>
+    <th>Price</th>
+    <th>Paid</th>
+    <th>Payment Gateway</th>
+    <th>Action</th>
+  </tr>
+
+<% @payments.each do |payment| %>
+  <tr>
+    <td><%= payment.name %></td>
+    <td><%= payment.date_nice %></td>
+    <td><%= payment.period %></td>
+    <td><%= payment.price %></td>
+    <td><%= payment.paid %></td>
+    <td><%= payment.payment_gateway.try(:name) %></td>
+    <td class="action"><%= link_to icon_for('show', 'Show'), payment %> <%= link_to icon_for('edit', 'Edit'), edit_payment_path(payment) %> <%= link_to icon_for('delete', 'Delete'), payment, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,5 +1,6 @@
 class Client < ActiveRecord::Base
   has_many :licenses
+  has_many :payments, :through => :licenses
   has_many :servers
   has_many :all_servers, :through => :licenses, :source => :servers
   has_many :children, :class_name => 'Client', :foreign_key => 'parent_id'
@@ -20,7 +21,9 @@ class Client < ActiveRecord::Base
   end
 
   def name_or_email
-    name || email
+    return name if name.present?
+    return email if email.present?
+    "Incosistent Database"
   end
 
   def append_email(value)

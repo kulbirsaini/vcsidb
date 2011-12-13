@@ -1,8 +1,8 @@
 class License < ActiveRecord::Base
   has_many :servers
+  has_many :payments
 
   belongs_to :client
-  belongs_to :payment_gateway
 
   validates_numericality_of :client_id, :only_integer => true, :greater_than => 0
   validates_length_of :key, :is => 40

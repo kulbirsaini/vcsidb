@@ -1,6 +1,6 @@
 class PaymentGateway < ActiveRecord::Base
-  belongs_to :client
-  belongs_to :license
+  has_many :clients
+  has_many :payments
 
   validates_presence_of :name
 end

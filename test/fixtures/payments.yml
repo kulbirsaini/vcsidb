@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  license_id: 1
+  date: 2011-12-13 00:35:51
+  period: 1
+  price: 1
+  paid: 1
+  payment_gateway_id: 1
+  notes: MyText
+
+two:
+  license_id: 1
+  date: 2011-12-13 00:35:51
+  period: 1
+  price: 1
+  paid: 1
+  payment_gateway_id: 1
+  notes: MyText

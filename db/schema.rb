@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111105061005) do
+ActiveRecord::Schema.define(:version => 20111212190548) do
 
   create_table "business_types", :force => true do |t|
     t.string   "name"
@@ -73,6 +73,18 @@ ActiveRecord::Schema.define(:version => 20111105061005) do
     t.string   "website"
     t.text     "description"
     t.boolean  "disabled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "license_id"
+    t.datetime "date"
+    t.integer  "period"
+    t.integer  "price"
+    t.integer  "paid"
+    t.integer  "payment_gateway_id"
+    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

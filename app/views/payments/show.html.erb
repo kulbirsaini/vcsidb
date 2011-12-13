@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>License:</b>
+  <%= @payment.license_id %>
+</p>
+
+<p>
+  <b>Date:</b>
+  <%= @payment.date %>
+</p>
+
+<p>
+  <b>Period:</b>
+  <%= @payment.period %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @payment.price %>
+</p>
+
+<p>
+  <b>Paid:</b>
+  <%= @payment.paid %>
+</p>
+
+<p>
+  <b>Payment gateway:</b>
+  <%= @payment.payment_gateway_id %>
+</p>
+
+<p>
+  <b>Notes:</b>
+  <%= @payment.notes %>
+</p>
+
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

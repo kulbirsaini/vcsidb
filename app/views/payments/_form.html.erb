@@ -1,0 +1,59 @@
+<%= javascript_tag do %>
+  jQuery(document).ready(function(){
+    jQuery('#payment_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+  });
+<% end %>
+<%= form_for(@payment) do |f| %>
+  <% if @payment.errors.any? %>
+    <div class="row">
+      <div class="span14 offset1">
+        <div id="error_explanation" class="alert-message block-message error">
+          <h3><%= pluralize(@payment.errors.count, "error") %> prohibited this payment from being saved:</h3>
+
+          <ul>
+          <% @payment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row show-grid">
+    <div class="span8">
+      <div class="clearfix">
+        <%= f.label :license_id %>
+        <div class="input"><%= f.select :license_id, License.all.map{ |l| [l.name, l.id] }, { :include_blank => 'Select License' } %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :date %>
+        <div class="input"><%= f.text_field :date %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :period %>
+        <div class="input"><%= f.number_field :period %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :price %>
+        <div class="input"><%= f.number_field :price %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :paid %>
+        <div class="input"><%= f.number_field :paid %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :payment_gateway_id %>
+        <div class="input"><%= f.select :payment_gateway_id, PaymentGateway.all.map{ |p| [p.name, p.id] }, { :include_blank => 'Select Payment Gateway' } %></div>
+      </div>
+      <div class="clearfix">
+        <%= f.label :notes %>
+        <div class="input"><%= f.text_area :notes %></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :class => 'btn primary' %>
+  </div>
+<% end %>
