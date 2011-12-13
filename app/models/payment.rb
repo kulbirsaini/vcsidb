@@ -2,7 +2,7 @@ class Payment < ActiveRecord::Base
   belongs_to :license
   belongs_to :payment_gateway
 
-  def start_date_nice
+  def date_nice
     date.present? ? date.strftime('%b %d, %y') : ''
   end
 
