@@ -1,54 +1,56 @@
+<%= javascript_tag do %>
+  jQuery(document).ready(function() {
+    jQuery('#clients').dataTable({
+      "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+      "sPaginationType": "bootstrap"
+    });
+    jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
+      "sSortAsc": "header headerSortDown",
+      "sSortDesc": "header headerSortUp",
+      "sSortable": "header"
+    });
+  });
+<% end %>
 <div class="row">
   <div class="span2">
     <h1>Clients</h1>
-  </div>
-  <div class="span4">
-    <div class="search pagination">
-      <ul>
-        <li>
-          <%= search_form_for(Client.search({})) do |f| %>
-            <%= f.text_field :name_or_email_or_company_or_other_emails_or_notes_or_message_cont %>
-            <%= image_submit_tag(asset_path("icons/search.png")) %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
   </div>
   <div class="span1">
     <div class="new pagination">
       <ul><li><%= link_to icon_for('new'), new_client_path, { :title => 'New Client' } %></li></ul>
     </div>
   </div>
-  <div class="span14 pages">
-    <%= paginate @clients %>
-  </div>
 </div>
 
-<table class="condensed-table zebra-striped bordered-table">
-  <tr class="table-header">
-    <th>Name</th>
-    <th>Email</th>
-    <th>Country</th>
-    <th>Other emails</th>
-    <th>Expired</th>
-    <th>Reseller</th>
-    <th>Reseller Name</th>
-    <th>Flag</th>
-    <th>Actions</th>
-  </tr>
+<table class="condensed-table zebra-striped bordered-table" id="clients">
+  <thead>
+    <tr class="table-header">
+      <th>Name</th>
+      <th>Email</th>
+      <th>Country</th>
+      <th>Other emails</th>
+      <th>Expired</th>
+      <th>Reseller</th>
+      <th>Reseller Name</th>
+      <th>Flag</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
+  <tbody>
 <% @clients.each do |client| %>
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= client.name %></td>
-    <td><abbr title="<%= client.email %>"><%= client.email.last(48) %></abbr></td>
+    <td><%= client.email %></td>
     <td><%= client.country.try(:name) %></td>
-    <td><abbr title="<%= client.other_emails %>"><%= (client.other_emails || '').last(64) %></abbr></td>
-    <td class="center"><%= client.expired ? icon_for('flag-red', 'Expired') : icon_for('flag-green', 'Valid') %></td>
-    <td class="center"><%= client.reseller ? icon_for('star', 'Reseller') : icon_for('star-gray', 'Not a reseller') %></td>
+    <td><%= client.other_emails %></td>
+    <td class="center"><%= client.expired ? 'Yes' : 'No' %></td>
+    <td class="center"><%= client.reseller ? 'Yes' : 'No' %></td>
     <td><%= client.parent.try(:name) %></td>
     <td class="center"><%= client.flag ? icon_for('lamp-active', client.message || 'No message') : icon_for('lamp-inactive', 'No message') %></td>
     <td class="action"><%= link_to icon_for('show', 'Show'), client %> <%= link_to icon_for('edit', 'Edit'), edit_client_path(client) %> <%= link_to icon_for('delete', 'Delete'), client, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
+  </tbody>
 </table>
 <br />

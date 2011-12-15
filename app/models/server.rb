@@ -9,7 +9,7 @@ class Server < ActiveRecord::Base
   end
 
   def licensee_name
-    (license.try(:client).try(:name_or_email) || '').first(MAX_NAME_LENGTH)
+    (license.try(:client).try(:name_or_email) || '')
   end
 
   def licensee_full_name
@@ -21,10 +21,17 @@ class Server < ActiveRecord::Base
   end
 
   def client_name
-    (client.try(:name_or_email) || '').first(MAX_NAME_LENGTH)
+    (client.try(:name_or_email) || '')
   end
 
   def client_full_name
     client.try(:name)
+  end
+
+  def license_valid?
+    return true if licensee_email == client_email
+    return true if email =~ /^sisland_/
+    return true if email =~ /@sequreisp.com$/
+    return false
   end
 end

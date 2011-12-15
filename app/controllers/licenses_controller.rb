@@ -5,7 +5,7 @@ class LicensesController < ApplicationController
   # GET /licenses
   # GET /licenses.json
   def index
-    @licenses = params[:q].present? ? License.search(params[:q]).result.page(params[:page]) : License.page(params[:page])
+    @licenses = License.all
 
     respond_to do |format|
       format.html # index.html.erb

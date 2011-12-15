@@ -1,65 +1,67 @@
+<%= javascript_tag do %>
+  jQuery(document).ready(function() {
+    jQuery('#servers').dataTable({
+      "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
+      "sPaginationType": "bootstrap"
+    });
+    jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
+      "sSortAsc": "header headerSortDown",
+      "sSortDesc": "header headerSortUp",
+      "sSortable": "header"
+    });
+  });
+<% end %>
 <div class="row">
   <div class="span2">
     <h1>Servers</h1>
-  </div>
-  <div class="span4">
-    <div class="search pagination">
-      <ul>
-        <li>
-          <%= search_form_for(Server.search({})) do |f| %>
-            <%= f.text_field :email_or_version_or_revision_or_macs_or_ips_or_python_or_squid_or_os_name_or_os_id_or_os_version_or_system_or_arch_cont %>
-            <%= image_submit_tag(asset_path("icons/search.png")) %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
   </div>
   <div class="span1">
     <div class="new pagination">
       <ul><li><%= link_to icon_for('new'), new_server_path, { :title => 'New Server' } %></li></ul>
     </div>
   </div>
-  <div class="span14 pages">
-    <%= paginate @servers %>
-  </div>
 </div>
 
-<table class="condensed-table zebra-striped bordered-table">
-  <tr class="table-header">
-    <th>Email</th>
-    <th>License</th>
-    <th>Client</th>
-    <th>Version</th>
-    <th>Revision</th>
-    <th>Trial</th>
-    <th>MAC Address</th>
-    <th>IP Address</th>
-    <th>Python</th>
-    <th>Squid</th>
-    <th>OS</th>
-    <th>System/Arch</th>
-    <th>Created</th>
-    <th>Updated</th>
-    <th>Action</th>
-  </tr>
+<table class="condensed-table zebra-striped bordered-table" id="servers">
+  <thead>
+    <tr class="table-header">
+      <th>Email</th>
+      <th>License</th>
+      <th>Valid</th>
+      <th>Version</th>
+      <th>Revision</th>
+      <th>Trial</th>
+      <th>MAC Address</th>
+      <th>IP Address</th>
+      <th>Python</th>
+      <th>Squid</th>
+      <th>OS</th>
+      <th>System/Arch</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Action</th>
+    </tr>
+  </thead>
 
+  <tbody>
 <% @servers.each do |server| %>
   <tr class="<%= cycle('odd', 'even') %>">
-    <td><abbr title="<%= server.email %>"><%= (server.email || '').last(48) %></abbr></td>
-    <td><abbr title='<%= "#{server.licensee_full_name} (#{server.licensee_email})" %>'><%= server.licensee_name %></abbr></td>
-    <td><abbr title='<%= "#{server.client_full_name} (#{server.client_email})" %>'><%= server.client_name %></abbr></td>
+    <td><%= server.email.first(48) %></td>
+    <td><%= server.licensee_name == server.email ? '-' : server.licensee_name %></td>
+    <td><%= server.license_valid? ? 'Yes' : 'No' %></td>
     <td><%= server.version %></td>
     <td><%= server.revision %></td>
-    <td class="center"><%= server.trial ? icon_for('star-gray', 'Trial') : icon_for('star', 'Premium') %></td>
+    <td class="center"><%= server.trial ? 'Yes' : 'No' %></td>
     <td><%= (server.macs.present? and server.macs.size>MAX_MAC_LENGTH) ? raw("<abbr title='#{server.macs}'>#{server.macs.first(MAX_MAC_LENGTH)}</abbr>") : server.macs%></td>
     <td><%= (server.ips.present? and server.ips.size > MAX_MAC_LENGTH) ? raw("<abbr title='#{server.ips}'>#{server.ips.first(MAX_MAC_LENGTH)}</abbr>") : server.ips %></td>
     <td><%= server.python %></td>
     <td><%= server.squid %></td>
     <td><%= "#{server.os_name.try(:titleize)} #{server.os_version}" %></td>
-    <td><%= server.system %> / <%= server.arch %></td>
+    <td><%= server.system %> <%= server.arch %></td>
     <td><%= server.created_at.strftime('%b %d %H:%M') %></td>
     <td><%= server.updated_at.strftime('%b %d %H:%M') %></td>
     <td class="action"><%= link_to icon_for('show', 'Show'), server %> <%= link_to icon_for('edit', 'Edit'), edit_server_path(server) %> <%= link_to icon_for('delete', 'Delete'), server, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
+  <tbody>
 </table>

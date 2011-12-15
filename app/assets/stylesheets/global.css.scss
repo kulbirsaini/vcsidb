@@ -20,23 +20,6 @@ table {
   }
 }
 
-.pagination {
-  margin: 0px auto !important;
-
-  li.next a, li.prev a, li.first a, li.last a {
-    line-height: 0px;
-    padding: 5px;
-  }
-
-  .next a {
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-  }
-}
-
-.span14.pages {
-  margin-left: 0px;
-}
-
 .new.pagination {
   margin: 0 auto;
 
@@ -46,25 +29,4 @@ table {
   }
 }
 
-.search.pagination {
-  margin: 0 auto;
-
-  li form {
-    line-height: 0px;
-    padding: 3px;
-    margin-bottom: 0px;
-
-    input[type="image"] {
-      box-shadow: none;
-      margin-left: 190px;
-      border: 0px none;
-      width: 24px;
-      height: 24px;
-      margin-top: -29px;
-    }
-
-    input {
-      float: left;
-    }
-  }
-}
+@import 'datatables';

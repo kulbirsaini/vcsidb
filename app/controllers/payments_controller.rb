@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.page(params[:page])
+    @payments = Payment.all
 
     respond_to do |format|
       format.html # index.html.erb
