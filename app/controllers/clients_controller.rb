@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.first(20)
+    @clients = Client.all
 
     respond_to do |format|
       format.html # index.html.erb
