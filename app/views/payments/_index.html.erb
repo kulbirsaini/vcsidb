@@ -1,0 +1,61 @@
+<% payments ||= [] %>
+<% table_id ||= 'payments' %>
+<% unless defined?(info); info = true; end %>
+<% unless defined?(filter); filter = true; end %>
+<% unless defined?(paginate); paginate = true; end %>
+<% unless defined?(length_change); length_change = true; end %>
+
+<% if payments.count > 0 %>
+  <%= javascript_tag do %>
+    jQuery(document).ready(function() {
+    jQuery('#<%= table_id %>').dataTable({
+        "sDom": "<'row'<'span4'l><'span5'f><'span7'p>r>t<'row'<'span8'i>>",
+        "bInfo": <%= info %>,
+        "bFilter": <%= filter %>,
+        "bPaginate": <%= paginate %>,
+        "bLengthChange": <%= length_change %>,
+        "sPaginationType": "bootstrap",
+        "aoColumnDefs": [
+          { "bVisible": false, "aTargets": [ 0 ] }
+        ]
+      });
+      jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
+        "sSortAsc": "header headerSortDown",
+        "sSortDesc": "header headerSortUp",
+        "sSortable": "header"
+      });
+    });
+  <% end %>
+
+  <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
+    <thead>
+      <tr>
+        <th>Client Email</th>
+        <th>License</th>
+        <th>Date</th>
+        <th>Period</th>
+        <th>Price</th>
+        <th>Paid</th>
+        <th>Payment Gateway</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  <% payments.each do |payment| %>
+    <tr>
+      <td><%= payment.license.try(:client).try(:email) %></td>
+      <td><%= payment.name %></td>
+      <td><%= format_date(payment.date, '%b %d, %Y') %></td>
+      <td><%= payment.period %></td>
+      <td><%= payment.price %></td>
+      <td><%= payment.paid %></td>
+      <td><%= payment.payment_gateway.try(:name) %></td>
+      <td class="action"><%= link_to icon_for('show', 'Show'), payment %> <%= link_to icon_for('edit', 'Edit'), edit_payment_path(payment) %> <%= link_to icon_for('delete', 'Delete'), payment, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No data available.</p>
+<% end %>

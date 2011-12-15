@@ -1,5 +1,14 @@
-<h1>New client</h1>
+<div class="row">
+  <div class="span4">
+    <h1>New Client</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), clients_path %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', clients_path %>

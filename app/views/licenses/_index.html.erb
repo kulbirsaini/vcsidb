@@ -1,0 +1,65 @@
+<% licenses ||= [] %>
+<% table_id ||= 'licenses' %>
+<% unless defined?(info); info = true; end %>
+<% unless defined?(filter); filter = true; end %>
+<% unless defined?(paginate); paginate = true; end %>
+<% unless defined?(length_change); length_change = true; end %>
+
+<% if licenses.count > 0 %>
+  <%= javascript_tag do %>
+    jQuery(document).ready(function() {
+      jQuery('#<%= table_id %>').dataTable({
+        "sDom": "<'row'<'span4'l><'span5'f><'span7'p>r>t<'row'<'span8'i>>",
+        "sPaginationType": "bootstrap",
+        "bInfo": <%= info %>,
+        "bFilter": <%= filter %>,
+        "bPaginate": <%= paginate %>,
+        "bLengthChange": <%= length_change %>,
+        "aoColumnDefs": [
+          { "bVisible": false, "aTargets": [ 0 ] }
+        ]
+      });
+      jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
+        "sSortAsc": "header headerSortDown",
+        "sSortDesc": "header headerSortUp",
+        "sSortable": "header"
+      });
+    });
+  <% end %>
+
+  <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
+    <thead>
+      <tr class="table-header">
+        <th>Email</th>
+        <th>Client</th>
+        <th>License Key</th>
+        <th>Start Date</th>
+        <th>Renewal Date</th>
+        <th>Servers</th>
+        <th>Running Servers</th>
+        <th>Trial</th>
+        <th>Expired</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  <% licenses.each do |license| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= license.client.try(:email) %></td>
+      <td><%= license.name %></td>
+      <td><%= license.key %></td>
+      <td><%= format_date(license.start_date, '%b %d, %Y') %></td>
+      <td><%= format_date(license.renewal_date, '%b %d, %Y') %></td>
+      <td><%= license.num_servers %></td>
+      <td><%= license.servers.count %></td>
+      <td class="center"><%= license.trial ? 'Yes' : 'No' %></td>
+      <td class="center"><%= license.expired ? 'Yes' : 'No' %></td>
+      <td class="action"><%= link_to icon_for('show', 'Show'), license %> <%= link_to icon_for('edit', 'Edit'), edit_license_path(license) %> <%= link_to icon_for('delete', 'Delete'), license, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No data available.</p>
+<% end %>

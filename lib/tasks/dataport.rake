@@ -3,7 +3,7 @@ namespace :dataport do
   task :export, [:needs] => [:environment] do
     licenses = []
     License.all.each do |l|
-      licenses << { :client_id=> l.client.email, :key=> l.key, :start_date=> l.start_date, :end_date=> l.end_date, :period=> l.period, :renewal_date=> l.renewal_date, :trial=> l.trial, :expired=> l.expired, :num_servers=> l.num_servers, :price=> l.price, :paid=> l.paid, :payment_gateway_id=>l.payment_gateway_id, :notes=> l.notes, :renewal_reminders=> l.renewal_reminders }
+      licenses << { :client_id=> l.client.email, :key=> l.key, :start_date=> l.start_date, :renewal_date=> l.renewal_date, :trial=> l.trial, :expired=> l.expired, :num_servers=> l.num_servers, :notes=> l.notes, :renewal_reminders=> l.renewal_reminders }
     end
     clients = []
     Client.all.each do |c|

@@ -16,7 +16,7 @@
   <% end %>
 
   <div class="row show-grid">
-    <div class="span8">
+    <div class="span6">
       <div class="clearfix">
         <%= f.label :name %>
         <div class="input"><%= f.text_field :name %></div>
@@ -30,11 +30,11 @@
         <div class="input"><%= f.text_field :company %></div>
       </div>
       <div class="clearfix">
-        <%= f.label :other_emails %>
+        <%= f.label :other_emails, 'Other Emails' %>
         <div class="input"><%= f.text_field :other_emails %></div>
       </div>
       <div class="clearfix">
-        <%= f.label :business_type_id %>
+        <%= f.label :business_type_id, 'Business Type' %>
         <div class="input"><%= f.select :business_type_id, BusinessType.all.map{ |b| [b.name, b.id] }, { :include_blank => 'Select Business Type' } %></div>
       </div>
       <div class="clearfix">
@@ -43,7 +43,7 @@
       </div>
     </div>
 
-    <div class="span8">
+    <div class="span6">
       <div class="clearfix">
         <%= f.label :city %>
         <div class="input"><%= f.text_field :city %></div>
@@ -57,7 +57,7 @@
         <div class="input"><%= f.select :country_id, Country.all.map{ |c| [c.name, c.id] }, { :include_blank => 'Select Country' } %></div>
       </div>
       <div class="clearfix">
-        <%= f.label :payment_gateway_id %>
+        <%= f.label :payment_gateway_id, 'Payment Gateway' %>
         <div class="input"><%= f.select :payment_gateway_id, PaymentGateway.all.map{ |p| [p.name, p.id] }, { :include_blank => 'Select Payment Gateway' } %></div>
       </div>
       <div class="clearfix">
@@ -73,7 +73,7 @@
 
   <div class="clearfix">
     <%= f.label :notes %>
-    <div class="input"><%= f.text_area :notes %></div>
+    <div class="input"><%= f.text_area :notes, { :class => 'largearea' } %></div>
   </div>
   <div class="actions">
     <%= f.submit :class => 'btn primary' %>

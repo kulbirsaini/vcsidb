@@ -1,5 +1,13 @@
-<h1>New server</h1>
-
+<div class="row">
+  <div class="span4">
+    <h1>New Server</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), servers_path %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <%= render 'form' %>
-
-<%= link_to 'Back', servers_path %>

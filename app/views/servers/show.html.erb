@@ -1,80 +1,81 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span3">
+    <h2>Server Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), servers_path %></li>
+        <li><%= link_to icon_for('edit'), edit_server_path(@server) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>License</th>
+        <th>Trial</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @server.email || '-' %></td>
+        <td><%= @server.licensee_name || '-' %></td>
+        <td><%= image_for(@server.trial) || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Version</th>
+        <th>Revision</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @server.client_name || '-' %></td>
+        <td><%= @server.version || '-' %></td>
+        <td><%= @server.revision || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>MACs</th>
+        <th>Python</th>
+        <th>Squid</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @server.macs || '-' %></td>
+        <td><%= @server.python || '-' %></td>
+        <td><%= @server.squid || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>IPs</th>
+        <th>OS</th>
+        <th>System / Arch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @server.ips || '-' %></td>
+        <td><%= "#{@server.os_name} #{@server.os_version} #{@server.os_id}" || '-' %></td>
+        <td><%= "#{@server.system} #{@server.arch}" || '-' %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<p>
-  <b>Email:</b>
-  <%= @server.email %>
-</p>
-
-<p>
-  <b>License:</b>
-  <%= @server.license_id %>
-</p>
-
-<p>
-  <b>Client:</b>
-  <%= @server.client_id %>
-</p>
-
-<p>
-  <b>Version:</b>
-  <%= @server.version %>
-</p>
-
-<p>
-  <b>Revision:</b>
-  <%= @server.revision %>
-</p>
-
-<p>
-  <b>Trial:</b>
-  <%= @server.trial %>
-</p>
-
-<p>
-  <b>Macs:</b>
-  <%= @server.macs %>
-</p>
-
-<p>
-  <b>Ips:</b>
-  <%= @server.ips %>
-</p>
-
-<p>
-  <b>Python:</b>
-  <%= @server.python %>
-</p>
-
-<p>
-  <b>Squid:</b>
-  <%= @server.squid %>
-</p>
-
-<p>
-  <b>Os name:</b>
-  <%= @server.os_name %>
-</p>
-
-<p>
-  <b>Os:</b>
-  <%= @server.os_id %>
-</p>
-
-<p>
-  <b>Os version:</b>
-  <%= @server.os_version %>
-</p>
-
-<p>
-  <b>System:</b>
-  <%= @server.system %>
-</p>
-
-<p>
-  <b>Arch:</b>
-  <%= @server.arch %>
-</p>
-
-
-<%= link_to 'Edit', edit_server_path(@server) %> |
-<%= link_to 'Back', servers_path %>
+<% details = @server.license.servers.count > 15 %>
+<div class="row"><div class="span3"><h3>License</h3></div></div>
+<%= render 'licenses/index', :licenses => @server.license.present? ? [@server.license] : [], :table_id => 'licenses', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Client</h3></div></div>
+<%= render 'clients/index', :clients => @server.license.client.present? ? [@server.license.client] : [], :table_id => 'clients', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Other Servers</h3></div></div>
+<%= render 'servers/index', :servers => @server.license.servers.first(20), :table_id => 'servers', :info => details, :filter => details, :paginate => details, :length_change => details %>

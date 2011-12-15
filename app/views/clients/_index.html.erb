@@ -1,0 +1,60 @@
+<% clients ||= [] %>
+<% table_id ||= 'clients' %>
+<% unless defined?(info); info = true; end %>
+<% unless defined?(filter); filter = true; end %>
+<% unless defined?(paginate); paginate = true; end %>
+<% unless defined?(length_change); length_change = true; end %>
+
+<% if clients.count > 0 %>
+  <%= javascript_tag do %>
+    jQuery(document).ready(function() {
+    jQuery('#<%= table_id %>').dataTable({
+        "sDom": "<'row'<'span4'l><'span5'f><'span7'p>r>t<'row'<'span8'i>>",
+        "bInfo": <%= info %>,
+        "bFilter": <%= filter %>,
+        "bPaginate": <%= paginate %>,
+        "bLengthChange": <%= length_change %>,
+        "sPaginationType": "bootstrap"
+      });
+      jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
+        "sSortAsc": "header headerSortDown",
+        "sSortDesc": "header headerSortUp",
+        "sSortable": "header"
+      });
+    });
+  <% end %>
+
+  <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
+    <thead>
+      <tr class="table-header">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Country</th>
+        <th>Other emails</th>
+        <th>Expired</th>
+        <th>Reseller</th>
+        <th>Reseller Name</th>
+        <th>Flag</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+  <% clients.each do |client| %>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= client.name %></td>
+      <td><%= client.email %></td>
+      <td><%= client.country.try(:name) %></td>
+      <td><%= client.other_emails %></td>
+      <td class="center"><%= client.expired ? 'Yes' : 'No' %></td>
+      <td class="center"><%= client.reseller ? 'Yes' : 'No' %></td>
+      <td><%= client.parent.try(:name) %></td>
+      <td class="center"><%= client.flag ? icon_for('lamp-active', client.message || 'No message') : icon_for('lamp-inactive', 'No message') %></td>
+      <td class="action"><%= link_to icon_for('show', 'Show'), client %> <%= link_to icon_for('edit', 'Edit'), edit_client_path(client) %> <%= link_to icon_for('delete', 'Delete'), client, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No data available.</p>
+<% end %>

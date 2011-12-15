@@ -1,16 +1,3 @@
-<%= javascript_tag do %>
-  jQuery(document).ready(function() {
-    jQuery('#licenses').dataTable({
-      "sDom": "<'row'<'span8'l><'span8'f>r>t<'row'<'span8'i><'span8'p>>",
-      "sPaginationType": "bootstrap"
-    });
-    jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
-      "sSortAsc": "header headerSortDown",
-      "sSortDesc": "header headerSortUp",
-      "sSortable": "header"
-    });
-  });
-<% end %>
 <div class="row">
   <div class="span3">
     <h1>Licenses</h1>
@@ -22,34 +9,4 @@
   </div>
 </div>
 
-<table class="condensed-table zebra-striped bordered-table" id="licenses">
-  <thead>
-    <tr class="table-header">
-      <th>Client</th>
-      <th>License Key</th>
-      <th>Start Date</th>
-      <th>Renewal Date</th>
-      <th>Servers</th>
-      <th>Running Servers</th>
-      <th>Trial</th>
-      <th>Expired</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-
-  <tbody>
-<% @licenses.each do |license| %>
-  <tr class="<%= cycle('odd', 'even') %>">
-    <td><%= license.name %></td>
-    <td><%= license.key %></td>
-    <td><%= license.start_date_nice %></td>
-    <td><%= license.renewal_date_nice %></td>
-    <td><%= license.num_servers %></td>
-    <td><%= license.servers.count %></td>
-    <td class="center"><%= license.trial ? 'Yes' : 'No' %></td>
-    <td class="center"><%= license.expired ? 'Yes' : 'No' %></td>
-    <td class="action"><%= link_to icon_for('show', 'Show'), license %> <%= link_to icon_for('edit', 'Edit'), edit_license_path(license) %> <%= link_to icon_for('delete', 'Delete'), license, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
+<%= render 'licenses/index', :licenses => @licenses, :table_id => 'licenses' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212190548) do
+ActiveRecord::Schema.define(:version => 20111215160200) do
 
   create_table "business_types", :force => true do |t|
     t.string   "name"
@@ -53,15 +53,10 @@ ActiveRecord::Schema.define(:version => 20111212190548) do
     t.integer  "client_id"
     t.string   "key"
     t.datetime "start_date"
-    t.datetime "end_date"
-    t.integer  "period"
     t.datetime "renewal_date"
     t.boolean  "trial"
     t.boolean  "expired"
     t.integer  "num_servers"
-    t.float    "price"
-    t.float    "paid"
-    t.integer  "payment_gateway_id"
     t.text     "notes"
     t.integer  "renewal_reminders"
     t.datetime "created_at"
@@ -108,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20111212190548) do
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "archived"
   end
 
   create_table "users", :force => true do |t|

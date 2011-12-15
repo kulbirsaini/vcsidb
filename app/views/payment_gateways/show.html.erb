@@ -1,25 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span6">
+    <h2>Payment Gateway Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), payment_gateways_path %></li>
+        <li><%= link_to icon_for('edit'), edit_payment_gateway_path(@payment_gateway) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @payment_gateway.name %>
-</p>
-
-<p>
-  <b>Website:</b>
-  <%= @payment_gateway.website %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @payment_gateway.description %>
-</p>
-
-<p>
-  <b>Disabled:</b>
-  <%= @payment_gateway.disabled %>
-</p>
-
-
-<%= link_to 'Edit', edit_payment_gateway_path(@payment_gateway) %> |
-<%= link_to 'Back', payment_gateways_path %>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Website</th>
+        <th>Description</th>
+        <th>Disabled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @payment_gateway.name || '-' %></td>
+        <td><%= @payment_gateway.website || '-' %></td>
+        <td><%= @payment_gateway.description || '-' %></td>
+        <td><%= image_for(@payment_gateway.disabled) || '-' %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

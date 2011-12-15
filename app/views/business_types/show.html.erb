@@ -1,20 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Name:</b>
-  <%= @business_type.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @business_type.description %>
-</p>
-
-<p>
-  <b>Disabled:</b>
-  <%= @business_type.disabled %>
-</p>
-
-
-<%= link_to 'Edit', edit_business_type_path(@business_type) %> |
-<%= link_to 'Back', business_types_path %>
+<div class="row">
+  <div class="span5">
+    <h2>Business Type Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), business_types_path %></li>
+        <li><%= link_to icon_for('edit'), edit_business_type_path(@business_type) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Disabled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @business_type.name || '-' %></td>
+        <td><%= @business_type.description || '-' %></td>
+        <td><%= image_for(@business_type.disabled) || '-' %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

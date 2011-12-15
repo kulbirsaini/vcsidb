@@ -1,75 +1,62 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span3">
+    <h2>License Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), licenses_path %></li>
+        <li><%= link_to icon_for('edit'), edit_license_path(@license) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-<p>
-  <b>Client:</b>
-  <%= @license.client_id %>
-</p>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>License Key</th>
+        <th>Start Date</th>
+        <th>Renewal Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @license.client.try(:name_or_email) || '-' %></td>
+        <td><%= @license.key || '-' %></td>
+        <td><%= format_date(@license.start_date, '%b %d, %Y') || '-' %></td>
+        <td><%= format_date(@license.renewal_date, '%b %d, %Y') || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>Number of Servers</th>
+        <th>Trial</th>
+        <th>Expired</th>
+        <th>Renewal Reminders</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @license.num_servers || 0 %></td>
+        <td><%= image_for(@license.trial) || '-' %></td>
+        <td><%= image_for(@license.expired) || '-' %></td>
+        <td><%= @license.renewal_reminders || 0 %></td>
+      </tr>
+    </tbody>
+  </table>
 
-<p>
-  <b>Key:</b>
-  <%= @license.key %>
-</p>
+  <% if @license.notes.present? %>
+    <p><strong>Note: </strong><%= @license.notes %></p>
+  <% end %>
+</div>
 
-<p>
-  <b>Start date:</b>
-  <%= @license.start_date %>
-</p>
-
-<p>
-  <b>End date:</b>
-  <%= @license.end_date %>
-</p>
-
-<p>
-  <b>Period:</b>
-  <%= @license.period %>
-</p>
-
-<p>
-  <b>Renewal date:</b>
-  <%= @license.renewal_date %>
-</p>
-
-<p>
-  <b>Trial:</b>
-  <%= @license.trial %>
-</p>
-
-<p>
-  <b>Expired:</b>
-  <%= @license.expired %>
-</p>
-
-<p>
-  <b>Num servers:</b>
-  <%= @license.num_servers %>
-</p>
-
-<p>
-  <b>Price:</b>
-  <%= @license.price %>
-</p>
-
-<p>
-  <b>Paid:</b>
-  <%= @license.paid %>
-</p>
-
-<p>
-  <b>Payment gateway:</b>
-  <%= @license.payment_gateway_id %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @license.notes %>
-</p>
-
-<p>
-  <b>Renewal reminders:</b>
-  <%= @license.renewal_reminders %>
-</p>
-
-
-<%= link_to 'Edit', edit_license_path(@license) %> |
-<%= link_to 'Back', licenses_path %>
+<% details = @license.servers.count > 15 %>
+<div class="row"><div class="span3"><h3>Client</h3></div></div>
+<%= render 'clients/index', :clients => @license.client.present? ? [@license.client] : [], :table_id => 'clients', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Payments</h3></div></div>
+<%= render 'payments/index', :payments => @license.payments, :table_id => 'payments', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Servers</h3></div></div>
+<%= render 'servers/index', :servers => @license.servers, :table_id => 'servers', :info => details, :filter => details, :paginate => details, :length_change => details %>

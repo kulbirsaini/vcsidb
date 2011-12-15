@@ -1,6 +1,14 @@
-<h1>Editing payment_gateway</h1>
-
+<div class="row">
+  <div class="span7">
+    <h1>Editing Payment Gateway</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), payment_gateways_path %></li>
+        <li><%= link_to icon_for('show'), @payment_gateway %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <%= render 'form' %>
-
-<%= link_to 'Show', @payment_gateway %> |
-<%= link_to 'Back', payment_gateways_path %>

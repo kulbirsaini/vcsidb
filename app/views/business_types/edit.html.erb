@@ -1,6 +1,14 @@
-<h1>Editing business_type</h1>
-
+<div class="row">
+  <div class="span6">
+    <h1>Editing Business Type</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), business_types_path %></li>
+        <li><%= link_to icon_for('show'), @business_type %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <%= render 'form' %>
-
-<%= link_to 'Show', @business_type %> |
-<%= link_to 'Back', business_types_path %>

@@ -1,6 +1,14 @@
-<h1>Editing server</h1>
-
+<div class="row">
+  <div class="span4">
+    <h1>Editing Server</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), servers_path %></li>
+        <li><%= link_to icon_for('show'), @server %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 <%= render 'form' %>
-
-<%= link_to 'Show', @server %> |
-<%= link_to 'Back', servers_path %>

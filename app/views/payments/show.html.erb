@@ -1,40 +1,46 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span4">
+    <h2>Payment Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), payments_path %></li>
+        <li><%= link_to icon_for('edit'), edit_payment_path(@payment) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Date</th>
+        <th>Period</th>
+        <th>Price</th>
+        <th>Paid</th>
+        <th>Payment Gateway</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @payment.name || '-' %></td>
+        <td><%= format_date(@payment.date, '%b %d, %Y') || '-' %></td>
+        <td><%= @payment.period || '-' %></td>
+        <td><%= @payment.price || '-' %></td>
+        <td><%= @payment.paid || '-' %></td>
+        <td><%= @payment.payment_gateway.try(:name) || '-' %></td>
+      </tr>
+    </tbody>
+  </table>
 
-<p>
-  <b>License:</b>
-  <%= @payment.license_id %>
-</p>
+  <% if @payment.notes.present? %>
+    <p><strong>Note:</strong> <%= @payment.notes %></p>
+  <% end %>
+</div>
 
-<p>
-  <b>Date:</b>
-  <%= @payment.date %>
-</p>
-
-<p>
-  <b>Period:</b>
-  <%= @payment.period %>
-</p>
-
-<p>
-  <b>Price:</b>
-  <%= @payment.price %>
-</p>
-
-<p>
-  <b>Paid:</b>
-  <%= @payment.paid %>
-</p>
-
-<p>
-  <b>Payment gateway:</b>
-  <%= @payment.payment_gateway_id %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @payment.notes %>
-</p>
-
-
-<%= link_to 'Edit', edit_payment_path(@payment) %> |
-<%= link_to 'Back', payments_path %>
+<div class="row"><div class="span3"><h3>License</h3></div></div>
+<%= render 'licenses/index', :licenses => @payment.license.present? ? [@payment.license] : [], :table_id => 'licenses', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Client</h3></div></div>
+<%= render 'clients/index', :clients => @payment.license.client.present? ? [@payment.license.client] : [], :table_id => 'clients', :info => false, :filter => false, :paginate => false, :length_change => false %>

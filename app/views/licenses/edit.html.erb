@@ -1,6 +1,15 @@
-<h1>Editing license</h1>
+<div class="row">
+  <div class="span4">
+    <h1>Editing License</h1>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), licenses_path %></li>
+        <li><%= link_to icon_for('show'), @license %></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @license %> |
-<%= link_to 'Back', licenses_path %>

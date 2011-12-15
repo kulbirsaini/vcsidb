@@ -1,70 +1,77 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="span3">
+    <h2>Client Page</h2>
+  </div>
+  <div class="span2">
+    <div class="new pagination">
+      <ul>
+        <li><%= link_to icon_for('back'), clients_path %></li>
+        <li><%= link_to icon_for('edit'), edit_client_path(@client) %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row show">
+  <table class="condensed-table zebra-striped bordered-table content-center">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Business Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @client.name || '-' %></td>
+        <td><%= @client.email || '-' %></td>
+        <td><%= @client.company || '-' %></td>
+        <td><%= @client.business_type.try(:name) || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Other Emails</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @client.city || '-' %></td>
+        <td><%= @client.state || '-' %></td>
+        <td><%= @client.country.try(:name) || '-' %></td>
+        <td><%= @client.other_emails || '-' %></td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>Payment Gateway</th>
+        <th>Expired</th>
+        <th>Reseller</th>
+        <th>Reseller Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @client.payment_gateway.try(:name) || '-' %></td>
+        <td><%= image_for(@client.expired) || '-' %></td>
+        <td><%= image_for(@client.reseller) || '-' %></td>
+        <td><%= @client.parent.try(:name) || '-' %></td>
+      </tr>
+    </tbody>
+  </table>
 
-<p>
-  <b>Name:</b>
-  <%= @client.name %>
-</p>
+  <% if @client.notes.present? %>
+    <p><strong>Note:</strong> <%= @client.notes %></p>
+  <% end %>
+</div>
 
-<p>
-  <b>Email:</b>
-  <%= @client.email %>
-</p>
-
-<p>
-  <b>Company:</b>
-  <%= @client.company %>
-</p>
-
-<p>
-  <b>Business type:</b>
-  <%= @client.business_type.try(:name) %>
-</p>
-
-<p>
-  <b>City:</b>
-  <%= @client.city %>
-</p>
-
-<p>
-  <b>State:</b>
-  <%= @client.state %>
-</p>
-
-<p>
-  <b>Country:</b>
-  <%= @client.country.try(:name) %>
-</p>
-
-<p>
-  <b>Other emails:</b>
-  <%= @client.other_emails %>
-</p>
-
-<p>
-  <b>Payment gateway:</b>
-  <%= @client.payment_gateway.try(:name) %>
-</p>
-
-<p>
-  <b>Expired:</b>
-  <%= image_for(@client.expired) %>
-</p>
-
-<p>
-  <b>Reseller:</b>
-  <%= image_for(@client.reseller) %>
-</p>
-
-<p>
-  <b>Parent:</b>
-  <%= @client.parent.try(:name) %>
-</p>
-
-<p>
-  <b>Notes:</b>
-  <%= @client.notes %>
-</p>
-
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+<% details = @client.servers.count > 15 %>
+<div class="row"><div class="span3"><h3>Licenses</h3></div></div>
+<%= render 'licenses/index', :licenses => @client.licenses, :table_id => 'licenses', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Payments</h3></div></div>
+<%= render 'payments/index', :payments => @client.payments, :table_id => 'payments', :info => false, :filter => false, :paginate => false, :length_change => false %>
+<div class="row"><div class="span3"><h3>Servers</h3></div></div>
+<%= render 'servers/index', :servers => @client.servers, :table_id => 'servers', :info => details, :filter => details, :paginate => details, :length_change => details %>

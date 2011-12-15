@@ -6,4 +6,9 @@ module ApplicationHelper
   def icon_for(action, title = '')
     image_tag(asset_path("icons/#{action}.png"), :title => title)
   end
+
+  def format_date(date, format)
+    return nil unless date
+    date.strftime(format)
+  end
 end
