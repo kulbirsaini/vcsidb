@@ -12,8 +12,8 @@ gem 'taps'
 gem 'devise'
 
 # Search
-#gem 'squeel'
-gem 'ransack'
+gem 'squeel'
+#gem 'ransack'
 #gem 'meta_search'
 #gem 'texticle', '~> 2.0', :require => 'texticle/rails', :git => 'git://github.com/tenderlove/texticle.git'
 
