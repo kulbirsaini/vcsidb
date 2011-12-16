@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = Client.includes(:country).includes(:parent).all
 
     respond_to do |format|
       format.html # index.html.erb

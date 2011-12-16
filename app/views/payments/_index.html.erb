@@ -48,7 +48,7 @@
     <tr>
       <td><%= payment.updated_at %></td>
       <td><%= payment.license.try(:client).try(:email) %></td>
-      <td><%= payment.name %></td>
+      <td><%= link_to payment.name_with_email, payment.license %></td>
       <td><%= format_date(payment.date, '%b %d, %Y') %></td>
       <td><%= payment.period %></td>
       <td><%= payment.price %></td>

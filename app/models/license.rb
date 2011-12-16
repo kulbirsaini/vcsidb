@@ -10,20 +10,6 @@ class License < ActiveRecord::Base
 
   default_scope :order => 'created_at DESC'
 
-  def start_date_nice
-    start_date.present? ?  start_date.strftime('%b %d, %y') : ''
-  end
-
-  def end_date_nice
-    end_date.present? ?  end_date.strftime('%b %d, %y') : ''
-  end
-
-  def renewal_date_nice
-    return renewal_date.strftime('%b %d, %y') if renewal_date.present?
-    return (start_date.to_date + period).strftime('%b %d, %y') if start_date.present? and period.present?
-    return ''
-  end
-
   def name
     client.name_or_email
   end
@@ -49,5 +35,12 @@ class License < ActiveRecord::Base
       c.update_attributes(:message => msg, :flag => true)
     end
     return false
+  end
+
+  def self.update_renewal_dates
+    License.all.each do |l|
+      p = Payment.unscoped.where(:license_id => l.id).order(:date).last
+      l.update_attributes( :renewal_date => p.date.to_date + p.period ) if p and p.date.present? and p.period.present?
+    end
   end
 end

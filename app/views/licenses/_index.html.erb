@@ -17,7 +17,7 @@
         "bLengthChange": <%= length_change %>,
         "aaSorting": [ [0, 'desc'] ],
         "aoColumnDefs": [
-          { "bVisible": false, "aTargets": [ 0, 1 ] }
+          { "bVisible": false, "aTargets": [ 0 ] }
         ]
       });
       jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
@@ -32,13 +32,12 @@
     <thead>
       <tr class="table-header">
         <th>Updated At</th>
-        <th>Email</th>
         <th>Client</th>
         <th>License Key</th>
         <th>Start Date</th>
         <th>Renewal Date</th>
         <th>Servers</th>
-        <th>Running Servers</th>
+        <th>Running</th>
         <th>Trial</th>
         <th>Expired</th>
         <th>Action</th>
@@ -49,13 +48,12 @@
   <% licenses.each do |license| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= license.updated_at %></td>
-      <td><%= license.client.try(:email) %></td>
-      <td><%= license.name %></td>
+      <td><%= link_to license.client.try(:name_with_email), license.client %></td>
       <td><%= license.key %></td>
       <td><%= format_date(license.start_date, '%b %d, %Y') %></td>
       <td><%= format_date(license.renewal_date, '%b %d, %Y') %></td>
-      <td><%= license.num_servers %></td>
-      <td><%= license.servers.count %></td>
+      <td class="center"><%= license.num_servers %></td>
+      <td class="center"><%= license.servers.count %></td>
       <td class="center"><%= license.trial ? 'Yes' : 'No' %></td>
       <td class="center"><%= license.expired ? 'Yes' : 'No' %></td>
       <td class="action"><%= link_to icon_for('show', 'Show'), license %> <%= link_to icon_for('edit', 'Edit'), edit_license_path(license) %> <%= link_to icon_for('delete', 'Delete'), license, confirm: 'Are you sure?', method: :delete %></td>

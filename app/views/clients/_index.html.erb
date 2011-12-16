@@ -32,8 +32,7 @@
     <thead>
       <tr class="table-header">
         <th>Updated At</th>
-        <th>Name</th>
-        <th>Email</th>
+        <th>Name / Email</th>
         <th>Country</th>
         <th>Other emails</th>
         <th>Expired</th>
@@ -48,13 +47,12 @@
   <% clients.each do |client| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= client.updated_at %></td>
-      <td><%= client.name %></td>
-      <td><%= client.email %></td>
+      <td><%= link_to client.name_with_email, client %></td>
       <td><%= client.country.try(:name) %></td>
       <td><%= client.other_emails %></td>
       <td class="center"><%= client.expired ? 'Yes' : 'No' %></td>
       <td class="center"><%= client.reseller ? 'Yes' : 'No' %></td>
-      <td><%= client.parent.try(:name) %></td>
+      <td><%= link_to client.parent.try(:name), client.parent if client.parent.present? %></td>
       <td class="center"><%= client.flag ? icon_for('lamp-active', client.message || 'No message') : icon_for('lamp-inactive', 'No message') %></td>
       <td class="action"><%= link_to icon_for('show', 'Show'), client %> <%= link_to icon_for('edit', 'Edit'), edit_client_path(client) %> <%= link_to icon_for('delete', 'Delete'), client, confirm: 'Are you sure?', method: :delete %></td>
     </tr>

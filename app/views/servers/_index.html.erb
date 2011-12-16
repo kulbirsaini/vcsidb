@@ -49,8 +49,8 @@
   <% servers.each do |server| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= server.email.first(48) %></td>
-      <td><%= server.licensee_name == server.email ? '-' : server.licensee_name %></td>
-      <td><%= server.license_valid? ? 'Yes' : 'No' %></td>
+      <td><%= link_to (server.licensee_name == server.email ? 'AAAA' : server.licensee_name), server.license if server.license %></td>
+      <td><%= server.authentic ? 'Yes' : 'No' %></td>
       <td><%= server.version %></td>
       <td><%= server.revision %></td>
       <td class="center"><%= server.trial ? 'Yes' : 'No' %></td>

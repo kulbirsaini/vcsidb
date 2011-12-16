@@ -2,7 +2,7 @@ class PaymentsController < ApplicationController
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.includes(:license).includes(:payment_gateway).includes(:client).all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -11,9 +11,11 @@ class Client < ActiveRecord::Base
   belongs_to :payment_gateway
 
   scope :reseller, where(:reseller => true)
+
   default_scope :order => 'created_at DESC'
 
   validates_uniqueness_of :email
+  validates_presence_of :email
 
   def city_state
     return "#{city.titleize}, #{state.titleize}" if city.present? and state.present?
@@ -24,6 +26,11 @@ class Client < ActiveRecord::Base
     return name if name.present?
     return email if email.present?
     "Incosistent Database"
+  end
+
+  def name_with_email
+    return email unless name.present?
+    return "#{name} (#{email})"
   end
 
   def append_email(value)

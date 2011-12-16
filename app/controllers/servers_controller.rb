@@ -5,7 +5,7 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.includes(:license).includes(:client)
+    @servers = Server.includes(:license).includes(:client).includes(:parent).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -120,6 +120,7 @@ class ServersController < ApplicationController
     else
       @server = Server.create(server)
     end
+    @server.update_attributes( :authentic => @server.license_valid? ) if @server
     return @server
   end
 end

@@ -1,6 +1,11 @@
 class Server < ActiveRecord::Base
+  has_one :parent, :through => :client
+
   belongs_to :license
   belongs_to :client
+
+  scope :active, where{{ archived.in => [false, nil] }}
+  scope :pirated, where{{ authentic => false }}
 
   default_scope :order => 'updated_at DESC'
   default_scope where{{ archived.in => [false, nil] }}
@@ -30,9 +35,14 @@ class Server < ActiveRecord::Base
   end
 
   def license_valid?
+    return false if license.nil? or license.try(:expired) or license.try(:client).try(:expired) or client.try(:expired)
     return true if licensee_email == client_email
     return true if email =~ /^sisland_/
     return true if email =~ /@sequreisp.com$/
     return false
+  end
+
+  def self.archive
+    Server.where{{ updated_at.lte => 3.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
   end
 end
