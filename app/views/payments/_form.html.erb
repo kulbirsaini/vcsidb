@@ -1,6 +1,6 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
-    jQuery('#payment_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    jQuery('#payment_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:2014' });
   });
 <% end %>
 <%= form_for(@payment) do |f| %>
@@ -32,7 +32,7 @@
       </div>
       <div class="clearfix">
         <%= f.label :date %>
-        <div class="input"><%= f.text_field :date %></div>
+        <div class="input"><%= f.text_field :date, :value => @payment.try(:date).try(:to_date) %></div>
       </div>
     </div>
 

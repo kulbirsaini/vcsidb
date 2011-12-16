@@ -1,8 +1,7 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
-    jQuery('#license_start_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
-    jQuery('#license_end_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
-    jQuery('#license_renewal_date').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    jQuery('#license_start_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:2014' });
+    jQuery('#license_renewal_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:2014' });
   });
 <% end %>
 <%= form_for(@license) do |f| %>
@@ -34,15 +33,19 @@
       </div>
       <div class="clearfix">
         <%= f.label :start_date %>
-        <div class="input"><%= f.text_field :start_date %></div>
+        <div class="input"><%= f.text_field :start_date, :value => @license.try(:start_date).try(:to_date) %></div>
       </div>
       <div class="clearfix">
-        <%= f.label :renewal_reminders, 'Renewal Reminders' %>
-        <div class="input"><%= f.select :renewal_reminders, 0.upto(3).map{ |i| [i, i] } %></div>
+        <%= f.label :renewal_date %>
+        <div class="input"><%= f.text_field :renewal_date, :value => @license.try(:renewal_date).try(:to_date) %></div>
       </div>
     </div>
 
     <div class="span7">
+      <div class="clearfix">
+        <%= f.label :renewal_reminders, 'Renewal Reminders' %>
+        <div class="input"><%= f.select :renewal_reminders, 0.upto(3).map{ |i| [i, i] } %></div>
+      </div>
       <div class="clearfix">
         <%= f.label :num_servers %>
         <div class="input"><%= f.number_field :num_servers %></div>
