@@ -15,8 +15,9 @@
         "bPaginate": <%= paginate %>,
         "bLengthChange": <%= length_change %>,
         "sPaginationType": "bootstrap",
+        "aaSorting": [ [0, 'desc'] ],
         "aoColumnDefs": [
-          { "bVisible": false, "aTargets": [ 0 ] }
+          { "bVisible": false, "aTargets": [ 0, 1 ] }
         ]
       });
       jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
@@ -30,6 +31,7 @@
   <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
     <thead>
       <tr>
+        <th>Updated At</th>
         <th>Client Email</th>
         <th>License</th>
         <th>Date</th>
@@ -44,6 +46,7 @@
     <tbody>
   <% payments.each do |payment| %>
     <tr>
+      <td><%= payment.updated_at %></td>
       <td><%= payment.license.try(:client).try(:email) %></td>
       <td><%= payment.name %></td>
       <td><%= format_date(payment.date, '%b %d, %Y') %></td>

@@ -14,7 +14,11 @@
         "bFilter": <%= filter %>,
         "bPaginate": <%= paginate %>,
         "bLengthChange": <%= length_change %>,
-        "sPaginationType": "bootstrap"
+        "sPaginationType": "bootstrap",
+        "aaSorting": [ [0, 'desc'] ],
+        "aoColumnDefs": [
+          { "bVisible": false, "aTargets": [ 0 ] }
+        ]
       });
       jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
         "sSortAsc": "header headerSortDown",
@@ -27,6 +31,7 @@
   <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
     <thead>
       <tr class="table-header">
+        <th>Updated At</th>
         <th>Name</th>
         <th>Email</th>
         <th>Country</th>
@@ -42,6 +47,7 @@
     <tbody>
   <% clients.each do |client| %>
     <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= client.updated_at %></td>
       <td><%= client.name %></td>
       <td><%= client.email %></td>
       <td><%= client.country.try(:name) %></td>
