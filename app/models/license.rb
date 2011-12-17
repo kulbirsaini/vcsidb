@@ -40,7 +40,7 @@ class License < ActiveRecord::Base
   def self.update_renewal_dates
     License.all.each do |l|
       p = Payment.unscoped.where(:license_id => l.id).order(:date).last
-      l.update_attributes( :renewal_date => p.date.to_date + p.period ) if p and p.date.present? and p.period.present?
+      l.update_attributes( :renewal_date => l.start_date.to_date + p.period ) if p and l.start_date.present? and p.period.present?
     end
   end
 end

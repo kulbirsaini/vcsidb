@@ -7,6 +7,6 @@ task :cron => :environment do
   end
 
   if Time.now.hour % 6 == 0
-    License.update_renewal_dates
+    #License.update_renewal_dates
   end
 end
