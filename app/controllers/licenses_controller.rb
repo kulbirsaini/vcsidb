@@ -5,7 +5,7 @@ class LicensesController < ApplicationController
   # GET /licenses
   # GET /licenses.json
   def index
-    @licenses = License.includes(:client).all
+    @licenses = License.active.includes(:client).all
 
     respond_to do |format|
       format.html # index.html.erb
