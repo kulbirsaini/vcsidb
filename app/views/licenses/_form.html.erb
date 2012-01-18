@@ -29,15 +29,15 @@
       </div>
       <div class="clearfix">
         <%= f.label :key %>
-        <div class="input"><%= f.text_field :key %></div>
+        <div class="input"><%= f.text_field :key, :autocomplete => "off" %></div>
       </div>
       <div class="clearfix">
         <%= f.label :start_date %>
-        <div class="input"><%= f.text_field :start_date, :value => @license.try(:start_date).try(:to_date) %></div>
+        <div class="input"><%= f.text_field :start_date, :value => @license.try(:start_date).try(:to_date), :autocomplete => "off" %></div>
       </div>
       <div class="clearfix">
         <%= f.label :renewal_date %>
-        <div class="input"><%= f.text_field :renewal_date, :value => @license.try(:renewal_date).try(:to_date) %></div>
+        <div class="input"><%= f.text_field :renewal_date, :value => @license.try(:renewal_date).try(:to_date), :autocomplete => "off" %></div>
       </div>
     </div>
 
@@ -48,7 +48,7 @@
       </div>
       <div class="clearfix">
         <%= f.label :num_servers %>
-        <div class="input"><%= f.number_field :num_servers %></div>
+        <div class="input"><%= f.number_field :num_servers, :autocomplete => "off" %></div>
       </div>
       <div class="clearfix">
         <%= f.label :trial %>
