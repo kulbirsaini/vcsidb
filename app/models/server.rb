@@ -45,4 +45,8 @@ class Server < ActiveRecord::Base
   def self.archive
     Server.where{{ updated_at.lte => 3.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
   end
+
+  def self.expire(num_days = 14)
+    Server.where{{ updated_at.lte => num_days.days.ago }}.each{ |s| s.destroy }
+  end
 end
