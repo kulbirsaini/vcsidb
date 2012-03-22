@@ -89,3 +89,4 @@ class Client < ActiveRecord::Base
     return Client.create(:email => email)
   end
 end
+
