@@ -28,6 +28,7 @@
     <thead>
       <tr class="table-header">
         <th>Email</th>
+        <th>UUID</th>
         <th>License</th>
         <th>Valid</th>
         <th>Version</th>
@@ -37,8 +38,7 @@
         <th>IP Address</th>
         <th>Python</th>
         <th>Squid</th>
-        <th>OS</th>
-        <th>System/Arch</th>
+        <th>OS/Sys/Arch</th>
         <th>Created</th>
         <th>Updated</th>
         <th>Action</th>
@@ -49,7 +49,8 @@
   <% servers.each do |server| %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= server.email.first(48) %></td>
-      <td><%= link_to (server.licensee_name == server.email ? 'AAAA' : server.licensee_name), server.license if server.license %></td>
+      <td><%= server.uuid %></td>
+      <td><%= link_to (server.licensee_name == server.email ? 'SAME' : server.licensee_name), server.license if server.license %></td>
       <td><%= server.authentic ? 'Yes' : 'No' %></td>
       <td><%= server.version %></td>
       <td><%= server.revision %></td>
@@ -58,8 +59,7 @@
       <td><%= (server.ips.present? and server.ips.size > MAX_MAC_LENGTH) ? raw("<abbr title='#{server.ips}'>#{server.ips.first(MAX_MAC_LENGTH)}</abbr>") : server.ips %></td>
       <td><%= server.python %></td>
       <td><%= server.squid %></td>
-      <td><%= "#{server.os_name.try(:titleize)} #{server.os_version}" %></td>
-      <td><%= server.system %> <%= server.arch %></td>
+      <td><%= "#{server.os_name.try(:titleize)} #{server.os_version}" %> <%= server.system %> <%= server.arch %></td>
       <td><%= server.created_at.strftime('%b %d, %Y %H:%M') %></td>
       <td><%= server.updated_at.strftime('%b %d, %Y %H:%M') %></td>
       <td class="action"><%= link_to icon_for('show', 'Show'), server %> <%= link_to icon_for('edit', 'Edit'), edit_server_path(server) %> <%= link_to icon_for('delete', 'Delete'), server, confirm: 'Are you sure?', method: :delete %></td>
