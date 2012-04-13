@@ -112,7 +112,7 @@ class ServersController < ApplicationController
     server[:arch] = info[:architecture] || info[:arch] || ''
     server[:ips] = (info[:ip_addresses] || info[:ips] || '').split(', ').map{ |i| i.strip }.select{ |i| i =~ IP_REGEX }.uniq.sort.join(', ')
     server[:macs] = (info[:mac_addresses] || info[:macs] || '').split(', ').map{ |i| i.strip.downcase }.select{ |i| i =~ MAC_REGEX }.uniq.sort.join(', ')
-    server[:uuid] = info[:magnet] || ''
+    server[:uuid] = (info[:magnet] || '').downcase
     #server[:notes] = (@notes << info).to_yaml
 
     @server = Server.where(:email => server[:email], :license_id => server[:license_id], :client_id => server[:client_id], :version => server[:version], :revision => server[:revision], :trial => server[:trial], :python => server[:python], :squid => server[:squid], :os_name => server[:os_name], :os_id => server[:os_id], :os_version => server[:os_version], :system => server[:system], :arch => server[:arch], :macs => server[:macs], :ips => server[:ips], :uuid => server[:uuid]).first
