@@ -9,6 +9,16 @@ class LicensesController < ApplicationController
     render :index
   end
 
+  def premium
+    @licenses = License.includes(:client).where(:trial => false).all
+    render :index
+  end
+
+  def trial
+    @licenses = License.includes(:client).where(:trial => true).all
+    render :index
+  end
+
   # GET /licenses
   # GET /licenses.json
   def index

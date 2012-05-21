@@ -1,5 +1,7 @@
 Csidb::Application.routes.draw do
   get 'licenses/all', :to => 'licenses#all'
+  get 'licenses/premium', :to => 'licenses#premium'
+  get 'licenses/trial', :to => 'licenses#trial'
   resources :payments
   resources :countries
   resources :business_types
