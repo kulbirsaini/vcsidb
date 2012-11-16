@@ -7,7 +7,6 @@ gem 'rails', '3.1.1'
 
 gem 'sqlite3'
 
-gem 'heroku'
 gem 'taps'
 gem 'devise'
 

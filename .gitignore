@@ -5,4 +5,4 @@ log/*
 *.*sql
 *.src.js
 tmp/
-.bin
+bin
