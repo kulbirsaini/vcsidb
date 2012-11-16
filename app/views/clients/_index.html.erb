@@ -54,8 +54,8 @@
       <td class="center"><%= client.expired ? 'Yes' : 'No' %></td>
       <td class="center"><%= client.reseller ? 'Yes' : 'No' %></td>
       <td><%= link_to client.parent.try(:name), client.parent if client.parent.present? %></td>
+      <td><%= format_date(client.created_at, '%Y-%m-%d-%H-%M') %></td>
       <td class="center"><%= client.flag ? icon_for('lamp-active', client.message || 'No message') : icon_for('lamp-inactive', 'No message') %></td>
-      <td><%= format_date(client.created_at, '%b %d, %Y %H:%M') %></td>
       <td class="action"><%= link_to icon_for('show', 'Show'), client %> <%= link_to icon_for('edit', 'Edit'), edit_client_path(client) %> <%= link_to icon_for('delete', 'Delete'), client, confirm: 'Are you sure?', method: :delete %></td>
     </tr>
   <% end %>
