@@ -104,6 +104,7 @@ class ServersController < ApplicationController
     server[:trial] = info[:trial] == '1' or email == 'sisland_demo@sislandsoft.com' or email == 'demo@sislandsoft.com' or @license.try(:trial) == true
     server[:version] = info[:version] || ''
     server[:revision] = info[:revision] || ''
+    server[:version] = '2.1' if server[:revision] == '073614dc'
     server[:os_name] = info[:os_name] || ''
     server[:os_version] = info[:os_version] || ''
     server[:os_id] = info[:os_id] || ''
