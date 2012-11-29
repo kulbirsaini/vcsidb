@@ -11,6 +11,9 @@ class License < ActiveRecord::Base
   scope :active, where{{ expired.in => [false, nil] }}
   default_scope :order => 'created_at DESC'
 
+  after_save :expire_license_server_cache
+  after_destroy :expire_license_server_cache
+
   def name
     client.name_or_email
   end
@@ -43,5 +46,13 @@ class License < ActiveRecord::Base
       p = Payment.unscoped.where(:license_id => l.id).order(:date).last
       l.update_attributes( :renewal_date => l.start_date.to_date + p.period ) if p and l.start_date.present? and p.period.present?
     end
+  end
+
+  private
+  def expire_license_server_cache
+    Rails.cache.delete('Server.all')
+    Rails.cache.delete('License.all')
+    Rails.cache.delete('License.premium')
+    Rails.cache.delete('License.trial')
   end
 end

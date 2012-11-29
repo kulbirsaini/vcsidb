@@ -5,17 +5,17 @@ class LicensesController < ApplicationController
 
   # Render expired licenses as well
   def all
-    @licenses = License.includes(:client).all
+    @licenses = Rails.cache.fetch('License.all') { License.includes(:client).all }
     render :index
   end
 
   def premium
-    @licenses = License.active.includes(:client).where(:trial => false).all
+    @licenses = Rails.cache.fetch('License.premium') { License.active.includes(:client).where(:trial => false).all }
     render :index
   end
 
   def trial
-    @licenses = License.active.includes(:client).where(:trial => true).all
+    @licenses = Rails.cache.fetch('License.trial') { License.active.includes(:client).where(:trial => true).all }
     render :index
   end
 

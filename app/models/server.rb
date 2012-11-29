@@ -10,6 +10,9 @@ class Server < ActiveRecord::Base
   default_scope :order => 'updated_at DESC'
   default_scope where{{ archived.in => [false, nil] }}
 
+  after_save :expire_server_all_cache
+  after_destroy :expire_server_all_cache
+
   def licensee_email
     license.try(:client).try(:email)
   end
@@ -55,5 +58,10 @@ class Server < ActiveRecord::Base
       end
     end
     puts "Total Deleted Servers : #{server_count}"
+  end
+
+  private
+  def expire_server_all_cache
+    Rails.cache.delete('Server.all')
   end
 end

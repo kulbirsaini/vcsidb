@@ -2,7 +2,6 @@ class ClientsController < ApplicationController
 
   before_filter :paranoid_authentication
   before_filter :authenticate_user!
-  after_filter :expire_client_all_cache, :only => [ :update, :create, :destroy ]
   # GET /clients
   # GET /clients.json
   def index
@@ -83,10 +82,5 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url }
       format.json { head :ok }
     end
-  end
-
-  private
-  def expire_client_all_cache
-    Rails.cache.delete('Client.all')
   end
 end

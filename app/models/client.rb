@@ -18,6 +18,9 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of :email
 
+  after_save :expire_client_license_server_cache
+  after_destroy :expire_client_license_server_cache
+
   def city_state
     return "#{city.titleize}, #{state.titleize}" if city.present? and state.present?
     city || state
@@ -88,6 +91,15 @@ class Client < ActiveRecord::Base
 
     # If it's a totally new client, then we have no option!
     return Client.create(:email => email)
+  end
+
+  private
+  def expire_client_license_server_cache
+    Rails.cache.delete('Client.all')
+    Rails.cache.delete('License.all')
+    Rails.cache.delete('License.premium')
+    Rails.cache.delete('License.trial')
+    Rails.cache.delete('Server.all')
   end
 end
 
