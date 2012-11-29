@@ -7,7 +7,7 @@ task :archive_servers => :environment do
   Server.archive
   puts "Archived #{count - Server.unscoped.count} servers"
 
-  num_days = 14
+  num_days = 30
   puts "Deleting servers older than #{num_days} days"
   count = Server.unscoped.count
   Server.expire num_days

@@ -1,7 +1,7 @@
 class Server < ActiveRecord::Base
   has_one :parent, :through => :client
 
-  belongs_to :license
+  belongs_to :license #, :counter_cache => true
   belongs_to :client
 
   scope :active, where{{ archived.in => [false, nil] }}
@@ -43,10 +43,10 @@ class Server < ActiveRecord::Base
   end
 
   def self.archive
-    Server.where{{ updated_at.lte => 3.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
+    Server.active.where{{ updated_at.lte => 4.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
   end
 
-  def self.expire(num_days = 14)
-    Server.where{{ updated_at.lte => num_days.days.ago }}.each{ |s| s.destroy }
+  def self.expire(num_days = 30)
+    Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.each{ |s| s.destroy }
   end
 end
