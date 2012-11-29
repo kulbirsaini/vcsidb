@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
   end
 
   add_index "clients", ["created_at"], :name => "index_clients_on_created_at"
+  add_index "clients", ["email"], :name => "index_clients_on_email"
   add_index "clients", ["parent_id"], :name => "index_clients_on_parent_id"
   add_index "clients", ["reseller"], :name => "index_clients_on_reseller"
 
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
   add_index "licenses", ["client_id"], :name => "index_licenses_on_client_id"
   add_index "licenses", ["created_at"], :name => "index_licenses_on_created_at"
   add_index "licenses", ["expired"], :name => "index_licenses_on_expired"
+  add_index "licenses", ["key"], :name => "index_licenses_on_key"
   add_index "licenses", ["trial"], :name => "index_licenses_on_trial"
 
   create_table "payment_gateways", :force => true do |t|

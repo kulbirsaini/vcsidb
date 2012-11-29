@@ -4,5 +4,6 @@ class AddIndicesToLicense < ActiveRecord::Migration
     add_index :licenses, :trial
     add_index :licenses, :expired
     add_index :licenses, :created_at
+    add_index :licenses, :key
   end
 end
