@@ -1,7 +1,7 @@
 class Server < ActiveRecord::Base
   has_one :parent, :through => :client
 
-  belongs_to :license, :counter_cache => true
+  belongs_to :license
   belongs_to :client
 
   scope :active, where{{ archived.in => [false, nil] }}
@@ -46,7 +46,7 @@ class Server < ActiveRecord::Base
     Server.active.where{{ updated_at.lte => 4.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
   end
 
-  def self.expire(num_days = 30)
+  def self.expire(num_days = 14)
     server_count = Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.select(:id).count
     Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.find_in_batches(:batch_size => 500) do |servers|
       puts "Deleting #{servers.count} servers"
