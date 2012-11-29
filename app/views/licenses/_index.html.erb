@@ -31,7 +31,7 @@
   <table class="condensed-table zebra-striped bordered-table" id="<%= table_id %>">
     <thead>
       <tr class="table-header">
-        <th>Updated At</th>
+        <th>Created At</th>
         <th>Client</th>
         <th>License Key</th>
         <th>Start Date</th>
@@ -47,7 +47,7 @@
     <tbody>
   <% licenses.each do |license| %>
     <tr class="<%= cycle('odd', 'even') %>">
-      <td><%= license.updated_at %></td>
+      <td><%= license.created_at %></td>
       <td><%= link_to license.client.try(:name_with_email), license.client %></td>
       <td><%= license.key %></td>
       <td><%= format_date(license.start_date, '%b %d, %Y') %></td>
