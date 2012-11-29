@@ -2,11 +2,11 @@ class ClientsController < ApplicationController
 
   before_filter :paranoid_authentication
   before_filter :authenticate_user!
-  caches_action :index
+  after_filter :expire_client_all_cache, :only => [ :update, :create, :destroy ]
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.includes(:country).includes(:parent).all
+    @clients = Rails.cache.fetch('Client.all') { Client.includes(:country).includes(:parent).all }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -55,7 +55,6 @@ class ClientsController < ApplicationController
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
-    expire_action :action => :index
   end
 
   # PUT /clients/1
@@ -72,7 +71,6 @@ class ClientsController < ApplicationController
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
-    expire_action :action => :index
   end
 
   # DELETE /clients/1
@@ -85,6 +83,10 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url }
       format.json { head :ok }
     end
-    expire_action :action => :index
+  end
+
+  private
+  def expire_client_all_cache
+    Rails.cache.delete('Client.all')
   end
 end
