@@ -5,7 +5,7 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Rails.cache.fetch('Server.all') { Server.includes(:license).includes(:client).includes(:parent).all }
+    @servers = Server.includes(:license).includes(:client).includes(:parent).all
 
     respond_to do |format|
       format.html # index.html.erb

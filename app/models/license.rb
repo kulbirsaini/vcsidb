@@ -11,8 +11,8 @@ class License < ActiveRecord::Base
   scope :active, where{{ expired.in => [false, nil] }}
   default_scope :order => 'created_at DESC'
 
-  after_save :expire_license_server_cache
-  after_destroy :expire_license_server_cache
+  after_save :expire_license_cache
+  after_destroy :expire_license_cache
 
   def name
     client.name_or_email
@@ -49,8 +49,7 @@ class License < ActiveRecord::Base
   end
 
   private
-  def expire_license_server_cache
-    Rails.cache.delete('Server.all')
+  def expire_license_cache
     Rails.cache.delete('License.all')
     Rails.cache.delete('License.premium')
     Rails.cache.delete('License.trial')
