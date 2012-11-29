@@ -11,6 +11,7 @@ class Client < ActiveRecord::Base
   belongs_to :payment_gateway
 
   scope :reseller, where(:reseller => true)
+  scope :independent, where{{ parent_id.in => [false, nil] }}
 
   default_scope :order => 'created_at DESC'
 

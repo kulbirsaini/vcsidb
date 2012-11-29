@@ -24,7 +24,7 @@
     <div class="span6">
       <div class="clearfix">
         <%= f.label :license_id %>
-        <div class="input"><%= f.select :license_id, License.all.map{ |l| [l.name, l.id] }, { :include_blank => 'Select License' } %></div>
+        <div class="input"><%= f.select :license_id, License.active.map{ |l| [l.name, l.id] }, { :include_blank => 'Select License' } %></div>
       </div>
       <div class="clearfix">
         <%= f.label :payment_gateway_id, 'Payment Gateway' %>
@@ -32,22 +32,22 @@
       </div>
       <div class="clearfix">
         <%= f.label :date %>
-        <div class="input"><%= f.text_field :date, :value => @payment.try(:date).try(:to_date), :autocomplete => "off" %></div>
+        <div class="input"><%= f.text_field :date, :value => @payment.try(:date).try(:to_date) || Date.today.to_date, :autocomplete => "off" %></div>
       </div>
     </div>
 
     <div class="span6">
       <div class="clearfix">
         <%= f.label :period %>
-        <div class="input"><%= f.number_field :period, :autocomplete => "off" %></div>
+        <div class="input"><%= f.number_field :period, :autocomplete => "off", :value => @payment.period || 365 %></div>
       </div>
       <div class="clearfix">
         <%= f.label :price %>
-        <div class="input"><%= f.number_field :price, :autocomplete => "off" %></div>
+        <div class="input"><%= f.number_field :price, :autocomplete => "off", :value => @payment.price || 395 %></div>
       </div>
       <div class="clearfix">
         <%= f.label :paid %>
-        <div class="input"><%= f.number_field :paid, :autocomplete => "off" %></div>
+        <div class="input"><%= f.number_field :paid, :autocomplete => "off", :value => @payment.paid %></div>
       </div>
     </div>
   </div>

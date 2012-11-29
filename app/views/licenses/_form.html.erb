@@ -25,7 +25,7 @@
     <div class="span6">
       <div class="clearfix">
         <%= f.label :client_id %>
-        <div class="input"><%= f.select :client_id, Client.all.map{ |c| [c.name_or_email, c.id] }, { :include_blank => 'Select Client' } %></div>
+        <div class="input"><%= f.select :client_id, Client.independent.map{ |c| [c.name_or_email, c.id] }, { :include_blank => 'Select Client' } %></div>
       </div>
       <div class="clearfix">
         <%= f.label :key %>
@@ -33,11 +33,11 @@
       </div>
       <div class="clearfix">
         <%= f.label :start_date %>
-        <div class="input"><%= f.text_field :start_date, :value => @license.try(:start_date).try(:to_date), :autocomplete => "off" %></div>
+        <div class="input"><%= f.text_field :start_date, :value => @license.try(:start_date).try(:to_date) || Date.today.to_date, :autocomplete => "off" %></div>
       </div>
       <div class="clearfix">
         <%= f.label :renewal_date %>
-        <div class="input"><%= f.text_field :renewal_date, :value => @license.try(:renewal_date).try(:to_date), :autocomplete => "off" %></div>
+        <div class="input"><%= f.text_field :renewal_date, :value => @license.try(:renewal_date).try(:to_date) || 366.days.from_now.to_date, :autocomplete => "off" %></div>
       </div>
     </div>
 
@@ -48,7 +48,7 @@
       </div>
       <div class="clearfix">
         <%= f.label :num_servers %>
-        <div class="input"><%= f.number_field :num_servers, :autocomplete => "off" %></div>
+        <div class="input"><%= f.number_field :num_servers, :autocomplete => "off", :value => @license.num_servers || 1 %></div>
       </div>
       <div class="clearfix">
         <%= f.label :trial %>
