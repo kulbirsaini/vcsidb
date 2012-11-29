@@ -2,6 +2,7 @@ class ClientsController < ApplicationController
 
   before_filter :paranoid_authentication
   before_filter :authenticate_user!
+  caches_action :index
   # GET /clients
   # GET /clients.json
   def index
@@ -54,6 +55,7 @@ class ClientsController < ApplicationController
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
+    expire_action :action => :index
   end
 
   # PUT /clients/1
@@ -70,6 +72,7 @@ class ClientsController < ApplicationController
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
+    expire_action :action => :index
   end
 
   # DELETE /clients/1
@@ -82,5 +85,6 @@ class ClientsController < ApplicationController
       format.html { redirect_to clients_url }
       format.json { head :ok }
     end
+    expire_action :action => :index
   end
 end
