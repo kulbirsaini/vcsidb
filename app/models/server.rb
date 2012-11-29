@@ -47,6 +47,13 @@ class Server < ActiveRecord::Base
   end
 
   def self.expire(num_days = 30)
-    Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.each{ |s| s.destroy }
+    server_count = Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.select(:id).count
+    Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.find_in_batches(:batch_size => 500) do |servers|
+      puts "Deleting #{servers.count} servers"
+      servers.each do |server|
+        server.destroy
+      end
+    end
+    puts "Total Deleted Servers : #{server_count}"
   end
 end
