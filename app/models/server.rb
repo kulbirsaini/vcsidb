@@ -1,7 +1,7 @@
 class Server < ActiveRecord::Base
   has_one :parent, :through => :client
 
-  belongs_to :license #, :counter_cache => true
+  belongs_to :license, :counter_cache => true
   belongs_to :client
 
   scope :active, where{{ archived.in => [false, nil] }}

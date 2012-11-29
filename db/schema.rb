@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120413202627) do
+ActiveRecord::Schema.define(:version => 20121129141438) do
 
   create_table "business_types", :force => true do |t|
     t.string   "name"
@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(:version => 20120413202627) do
     t.datetime "updated_at"
   end
 
+  add_index "clients", ["created_at"], :name => "index_clients_on_created_at"
+  add_index "clients", ["parent_id"], :name => "index_clients_on_parent_id"
+  add_index "clients", ["reseller"], :name => "index_clients_on_reseller"
+
   create_table "countries", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -62,6 +66,11 @@ ActiveRecord::Schema.define(:version => 20120413202627) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "licenses", ["client_id"], :name => "index_licenses_on_client_id"
+  add_index "licenses", ["created_at"], :name => "index_licenses_on_created_at"
+  add_index "licenses", ["expired"], :name => "index_licenses_on_expired"
+  add_index "licenses", ["trial"], :name => "index_licenses_on_trial"
 
   create_table "payment_gateways", :force => true do |t|
     t.string   "name"
@@ -107,6 +116,13 @@ ActiveRecord::Schema.define(:version => 20120413202627) do
     t.boolean  "authentic",  :default => false
     t.string   "uuid"
   end
+
+  add_index "servers", ["archived"], :name => "index_servers_on_archived"
+  add_index "servers", ["authentic"], :name => "index_servers_on_authentic"
+  add_index "servers", ["client_id"], :name => "index_servers_on_client_id"
+  add_index "servers", ["license_id"], :name => "index_servers_on_license_id"
+  add_index "servers", ["trial"], :name => "index_servers_on_trial"
+  add_index "servers", ["updated_at"], :name => "index_servers_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "username"
