@@ -47,7 +47,7 @@
       </div>
       <div class="clearfix">
         <%= f.label :paid %>
-        <div class="input"><%= f.number_field :paid, :autocomplete => "off", :value => @payment.paid %></div>
+        <div class="input"><%= f.number_field :paid, :autocomplete => "off", :value => @payment.paid || 395 %></div>
       </div>
     </div>
   </div>
