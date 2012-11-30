@@ -111,7 +111,7 @@ class ServersController < ApplicationController
     server[:python] = info[:python_version] || info[:python] || ''
     server[:system] = info[:system] || ''
     server[:arch] = info[:architecture] || info[:arch] || ''
-    server[:ips] = remote_ips #(info[:ip_addresses] || info[:ips] || '').split(', ').map{ |i| i.strip }.select{ |i| i =~ IP_REGEX }.uniq.sort.join(', ')
+    server[:ips] = get_ips((info[:ip_addresses] || info[:ips] || '').split(',').map(&:strip).select{ |i| i =~ IP_REGEX }.uniq).join(', ')
     server[:macs] = (info[:mac_addresses] || info[:macs] || '').split(', ').map{ |i| i.strip.downcase }.select{ |i| i =~ MAC_REGEX }.uniq.sort.join(', ')
     server[:uuid] = (info[:un] || '').downcase
     #server[:notes] = (@notes << info).to_yaml
@@ -125,5 +125,13 @@ class ServersController < ApplicationController
     end
     @server.update_attributes( :authentic => @server.license_valid? ) if @server
     return @server
+  end
+
+  private
+  def get_ips(ips)
+    common_ips = remote_ips & ips
+    return common_ips if common_ips.present?
+    return remote_ips if remote_ips.present?
+    return ips
   end
 end
