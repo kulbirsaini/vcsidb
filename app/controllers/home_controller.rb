@@ -4,6 +4,5 @@ class HomeController < ApplicationController
   layout = false
 
   def index
-    render :text => "Yay! It Works!"
   end
 end

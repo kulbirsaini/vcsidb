@@ -111,7 +111,7 @@ class ServersController < ApplicationController
     server[:python] = info[:python_version] || info[:python] || ''
     server[:system] = info[:system] || ''
     server[:arch] = info[:architecture] || info[:arch] || ''
-    server[:ips] = (info[:ip_addresses] || info[:ips] || '').split(', ').map{ |i| i.strip }.select{ |i| i =~ IP_REGEX }.uniq.sort.join(', ')
+    server[:ips] = remote_ips #(info[:ip_addresses] || info[:ips] || '').split(', ').map{ |i| i.strip }.select{ |i| i =~ IP_REGEX }.uniq.sort.join(', ')
     server[:macs] = (info[:mac_addresses] || info[:macs] || '').split(', ').map{ |i| i.strip.downcase }.select{ |i| i =~ MAC_REGEX }.uniq.sort.join(', ')
     server[:uuid] = (info[:un] || '').downcase
     #server[:notes] = (@notes << info).to_yaml
