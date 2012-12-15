@@ -8,7 +8,6 @@ gem 'squeel'
 gem 'hirb'
 gem 'pg'
 gem 'unicorn', :group => :development
-gem 'dalli'
 gem 'capistrano', :group => :development
 gem 'rvm-capistrano', :group => :development
 
