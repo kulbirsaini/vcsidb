@@ -3,6 +3,8 @@ class LicensesController < ApplicationController
   before_filter :paranoid_authentication, :except => [:expired]
   before_filter :authenticate_user!, :except => [:expired]
 
+  skip_before_filter :verify_authenticity_token, :only => [:expired]
+
   # Render expired licenses as well
   def all
     @licenses = License.includes(:client).all
