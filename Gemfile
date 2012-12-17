@@ -6,12 +6,15 @@ gem 'devise'
 gem 'hirb'
 gem 'pg'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'thin'
 
 group :development do
   gem 'unicorn'
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'therubyracer'
+  gem 'quiet_assets'
 end
 
 group :assets do

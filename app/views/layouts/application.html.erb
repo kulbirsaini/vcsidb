@@ -3,7 +3,6 @@
 <head>
   <title><%= controller.controller_name.titleize %> | VCSIDB</title>
   <%= stylesheet_link_tag "application" %>
-  <%= stylesheet_link_tag params[:controller] unless params[:controller] == 'devise/sessions' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= yield :head %>
