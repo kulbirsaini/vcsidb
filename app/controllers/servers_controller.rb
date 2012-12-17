@@ -111,15 +111,19 @@ class ServersController < ApplicationController
     server[:python] = info[:python_version] || info[:python] || ''
     server[:system] = info[:system] || ''
     server[:arch] = info[:architecture] || info[:arch] || ''
-    server[:ips] = (info[:ip_addresses] || info[:ips] || '').split(',').map(&:strip).select{ |i| i =~ IP_REGEX }.uniq.join(', ')
-    server[:macs] = (info[:mac_addresses] || info[:macs] || '').split(', ').map{ |i| i.strip.downcase }.select{ |i| i =~ MAC_REGEX }.uniq.sort.join(', ')
+    server[:ips] = (info[:ip_addresses] || info[:ips] || '').split(',').map(&:strip).select{ |i| i =~ IP_REGEX }.uniq.join(', ').first(5)
+    server[:macs] = (info[:mac_addresses] || info[:macs] || '').split(', ').map{ |i| i.strip.downcase }.select{ |i| i =~ MAC_REGEX }.uniq.sort.join(', ').first(5)
     server[:uuid] = (info[:un] || '').downcase
     #server[:notes] = (@notes << info).to_yaml
 
-    @server = Server.where(:email => server[:email], :license_id => server[:license_id], :client_id => server[:client_id], :version => server[:version], :revision => server[:revision], :trial => server[:trial], :python => server[:python], :squid => server[:squid], :os_name => server[:os_name], :os_id => server[:os_id], :os_version => server[:os_version], :system => server[:system], :arch => server[:arch], :macs => server[:macs], :ips => server[:ips], :uuid => server[:uuid]).first
+    if server[:uuid].present?
+      @server = Server.where(:email => server[:email], :license_id => server[:license_id], :client_id => server[:client_id], :version => server[:version], :revision => server[:revision], :trial => server[:trial], :uuid => server[:uuid]).first
+    else
+      @server = Server.where(:email => server[:email], :license_id => server[:license_id], :client_id => server[:client_id], :version => server[:version], :revision => server[:revision], :trial => server[:trial], :python => server[:python], :squid => server[:squid], :os_name => server[:os_name], :os_id => server[:os_id], :os_version => server[:os_version], :system => server[:system], :arch => server[:arch], :macs => server[:macs], :ips => server[:ips]).first
+    end
 
     if @server
-      @server.touch
+      @server.update_attributes({:python => server[:python], :squid => server[:squid], :os_name => server[:os_name], :os_id => server[:os_id], :os_version => server[:os_version], :system => server[:system], :arch => server[:arch], :macs => server[:macs], :ips => server[:ips]})
     else
       @server = Server.create(server)
     end
