@@ -42,8 +42,8 @@ class Server < ActiveRecord::Base
     return false
   end
 
-  def self.archive
-    Server.active.where("updated_at <= ?", 4.days.ago).each{ |s| s.update_attributes( :archived => true ) }
+  def self.archive(num_days = 4)
+    Server.active.where("updated_at <= ?", num_days.days.ago).each{ |s| s.update_attributes( :archived => true ) }
   end
 
   def self.expire(num_days = 14)
