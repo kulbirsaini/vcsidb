@@ -2,10 +2,16 @@ class ServersController < ApplicationController
 
   before_filter :paranoid_authentication, :except => [:create]
   before_filter :authenticate_user!, :except => [:create]
+
+  def all
+    @servers = Server.includes(:license).includes(:client).includes(:parent).first(1500)
+    render :index
+  end
+
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.includes(:license).includes(:client).includes(:parent).all
+    @servers = Server.includes(:license).includes(:client).includes(:parent).first(1000)
 
     respond_to do |format|
       format.html # index.html.erb
