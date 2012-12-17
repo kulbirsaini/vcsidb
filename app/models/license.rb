@@ -8,7 +8,7 @@ class License < ActiveRecord::Base
   validates_length_of :key, :is => 40
   validates_uniqueness_of :key
 
-  scope :active, where{{ expired.in => [false, nil] }}
+  scope :active, where(:expired => false)
   default_scope :order => 'created_at DESC'
 
   def name
@@ -27,7 +27,7 @@ class License < ActiveRecord::Base
     c = Client.where(:email => email).first
     return c.expired if c
 
-    clients = Client.where(:other_emails.matches => "%#{email}%").all
+    clients = Client.where("other_emails LIKE ?", "%#{email}%").all
     return clients.first.expired if clients.size == 1
 
     message = "Email #{email} matched with other_emails in more than two clients when checking for expired clients."

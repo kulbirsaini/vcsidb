@@ -11,7 +11,7 @@ class Client < ActiveRecord::Base
   belongs_to :payment_gateway
 
   scope :reseller, where(:reseller => true)
-  scope :independent, where{{ parent_id.in => [false, nil] }}
+  scope :independent, where(:parent_id => nil)
 
   default_scope :order => 'created_at DESC'
 
@@ -62,7 +62,7 @@ class Client < ActiveRecord::Base
     end
 
     # Locate email in client.other_emails
-    clients = Client.where(:other_emails.matches => "%#{email}%").all
+    clients = Client.where("other_emails LIKE ?", "%#{email}%").all
     if clients.size > 0
       return clients.first if clients.size == 1
 

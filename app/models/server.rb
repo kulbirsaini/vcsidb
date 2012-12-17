@@ -4,11 +4,11 @@ class Server < ActiveRecord::Base
   belongs_to :license
   belongs_to :client
 
-  scope :active, where{{ archived.in => [false, nil] }}
-  scope :pirated, where{{ authentic => false }}
+  scope :active, where("archived IN (?)", [false, nil])
+  scope :pirated, where(:authentic => false)
 
   default_scope :order => 'updated_at DESC'
-  default_scope where{{ archived.in => [false, nil] }}
+  default_scope where("archived IN (?)", [false, nil])
 
   def licensee_email
     license.try(:client).try(:email)
@@ -43,12 +43,12 @@ class Server < ActiveRecord::Base
   end
 
   def self.archive
-    Server.active.where{{ updated_at.lte => 4.days.ago }}.each{ |s| s.update_attributes( :archived => true ) }
+    Server.active.where("updated_at <= ?", 4.days.ago).each{ |s| s.update_attributes( :archived => true ) }
   end
 
   def self.expire(num_days = 14)
-    server_count = Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.select(:id).count
-    Server.unscoped.where{{ updated_at.lte => num_days.days.ago }}.find_in_batches(:batch_size => 500) do |servers|
+    server_count = Server.unscoped.where("updated_at <= ?", num_days.days.ago).select(:id).count
+    Server.unscoped.where("updated_at <= ?", num_days.days.ago).find_in_batches(:batch_size => 500) do |servers|
       puts "Deleting #{servers.count} servers"
       servers.each do |server|
         server.destroy

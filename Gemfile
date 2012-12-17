@@ -1,25 +1,25 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.1'
+gem 'rails', '3.2.9'
 
-gem 'taps'
 gem 'devise'
-gem 'squeel'
 gem 'hirb'
 gem 'pg'
-gem 'unicorn', :group => :development
-gem 'capistrano', :group => :development
-gem 'rvm-capistrano', :group => :development
+gem 'jquery-rails'
 
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.1.4'
-  gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+group :development do
+  gem 'unicorn'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'therubyracer'
 end
 
-gem 'jquery-rails'
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+end
+
 group :test do
   gem 'turn', :require => false
 end
