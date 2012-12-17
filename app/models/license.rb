@@ -8,7 +8,7 @@ class License < ActiveRecord::Base
   validates_length_of :key, :is => 40
   validates_uniqueness_of :key
 
-  scope :active, where(:expired => false)
+  scope :active, where("expired IS NULL OR expired = 'f'")
   default_scope :order => 'created_at DESC'
 
   def name

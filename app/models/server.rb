@@ -4,11 +4,11 @@ class Server < ActiveRecord::Base
   belongs_to :license
   belongs_to :client
 
-  scope :active, where("archived IN (?)", [false, nil])
+  scope :active, where("archived IS NULL OR archived = 'f'")
   scope :pirated, where(:authentic => false)
 
   default_scope :order => 'updated_at DESC'
-  default_scope where("archived IN (?)", [false, nil])
+  default_scope where("archived IS NULL OR archived = 'f'")
 
   def licensee_email
     license.try(:client).try(:email)
