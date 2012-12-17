@@ -2,9 +2,10 @@
 
 desc "Archive server instances which are older than three days."
 task :archive_servers => :environment do
-  puts 'Archiving servers'
+  num_days = 2
+  puts "Archiving servers older than #{num_days} days"
   count = Server.unscoped.count
-  Server.archive
+  Server.archive num_days
   puts "Archived #{count - Server.unscoped.count} servers"
 
   num_days = 14
@@ -12,5 +13,4 @@ task :archive_servers => :environment do
   count = Server.unscoped.count
   Server.expire num_days
   puts "Deleted #{count - Server.unscoped.count} servers"
-  #License.update_renewal_dates
 end
