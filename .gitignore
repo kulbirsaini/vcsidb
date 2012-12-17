@@ -6,3 +6,5 @@ log/*
 *.src.js
 tmp/
 bin
+test/
+public/assets
