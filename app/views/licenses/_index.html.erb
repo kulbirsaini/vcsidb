@@ -8,23 +8,21 @@
 <% if licenses.count > 0 %>
   <%= javascript_tag do %>
     jQuery(document).ready(function() {
-      jQuery('#<%= table_id %>').dataTable({
+      table = jQuery('#<%= table_id %>').dataTable({
         "sDom": "<'row'<'span4'l><'span5'f><'span7'p>r>t<'row'<'span8'i>>",
         "sPaginationType": "bootstrap",
         "bInfo": <%= info %>,
         "bFilter": <%= filter %>,
         "bPaginate": <%= paginate %>,
         "bLengthChange": <%= length_change %>,
-        "aaSorting": [ [0, 'desc'] ],
-        "aoColumnDefs": [
-          { "bVisible": false, "aTargets": [ 0 ] }
-        ]
+        "aaSorting": [ [0, 'desc'] ]
       });
       jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
         "sSortAsc": "header headerSortDown",
         "sSortDesc": "header headerSortUp",
         "sSortable": "header"
       });
+      table.fnSetColumnVis(0, false);
     });
   <% end %>
 
