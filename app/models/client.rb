@@ -20,6 +20,10 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of :email
 
+  def all_emails
+    [email, other_emails].select{ |i| i.present? }.join(',').split(',').map(&:strip).select{ |i| i.present? }.join(', ')
+  end
+
   def city_state
     return "#{city.titleize}, #{state.titleize}" if city.present? and state.present?
     city || state
