@@ -2,10 +2,21 @@ class ClientsController < ApplicationController
 
   before_filter :paranoid_authentication
   before_filter :authenticate_user!
+
+  def all
+    @clients = Client.includes(:country).includes(:parent).all
+    render :index
+  end
+
+  def expired
+    @clients = Client.expired.includes(:country).includes(:parent)
+    render :index
+  end
+
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.includes(:country).includes(:parent).all
+    @clients = Client.active.independent.includes(:country).includes(:parent)
 
     respond_to do |format|
       format.html # index.html.erb

@@ -10,6 +10,8 @@ class Client < ActiveRecord::Base
   belongs_to :business_type
   belongs_to :payment_gateway
 
+  scope :active, where("expired IS NULL OR expired = ?", false)
+  scope :expired, where(:expired => true)
   scope :reseller, where(:reseller => true)
   scope :independent, where(:parent_id => nil)
 
