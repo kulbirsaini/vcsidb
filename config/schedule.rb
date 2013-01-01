@@ -19,16 +19,11 @@
 
 # Learn more: http://github.com/javan/whenever
 
-release_path = fetch(:release_path)
-set :output, "#{release_path}/log/archive.log"
+set :output, '/home/saini/domains/hascache.com/current/log/archive.log'
 
 case environment
 when 'production'
-  every 1.day, :at => '12:30PM' do
-    rake 'archive_servers'
-  end
-when 'staging'
-  every 1.day, :at => '12:30PM' do
+  every 1.day, :at => '12:55PM' do
     rake 'archive_servers'
   end
 end
