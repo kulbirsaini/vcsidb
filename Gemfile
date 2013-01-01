@@ -8,6 +8,7 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'thin'
+gem 'whenever', :require => false
 
 group :development do
   gem 'unicorn'
