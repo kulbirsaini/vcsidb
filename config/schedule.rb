@@ -22,6 +22,9 @@
 set :environment, :production
 set :output, '/home/saini/domains/hascache.com/current/log/archive.log'
 
-every 1.day, :at => '12:30PM' do
-  rake 'archive_servers'
+case environment
+when 'production'
+  every 1.day, :at => '12:30PM' do
+    rake 'archive_servers'
+  end
 end
