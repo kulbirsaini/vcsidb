@@ -19,6 +19,8 @@
 
 # Learn more: http://github.com/javan/whenever
 
+env :PATH, ENV['PATH']
+env :GEM_HOME, ENV['GEM_HOME']
 set :output, '/home/saini/domains/hascache.com/current/log/archive.log'
 
 case environment
