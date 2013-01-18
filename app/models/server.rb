@@ -4,11 +4,11 @@ class Server < ActiveRecord::Base
   belongs_to :license
   belongs_to :client
 
-  scope :active, where("archived IS NULL OR archived = ?", false)
+  scope :active, where("\"servers\".archived IS NULL OR \"servers\".archived = ?", false)
   scope :pirated, where(:authentic => false)
 
-  default_scope :order => 'updated_at DESC'
-  default_scope where("archived IS NULL OR archived = ?", false)
+  default_scope :order => '"servers".updated_at DESC'
+  default_scope where("\"servers\".archived IS NULL OR \"servers\".archived = ?", false)
 
   def licensee_email
     license.try(:client).try(:email)
@@ -34,6 +34,10 @@ class Server < ActiveRecord::Base
     client.try(:name)
   end
 
+  def self.active_since(since = 1.days.ago)
+    active.where("\"servers\".updated_at >= ?", since.to_time)
+  end
+
   def license_valid?
     return false if license.nil? or license.try(:expired) or license.try(:client).try(:expired) or client.try(:expired)
     return true if licensee_email == client_email
@@ -43,11 +47,11 @@ class Server < ActiveRecord::Base
   end
 
   def self.archive(num_days = 4)
-    Server.active.where("updated_at <= ?", num_days.days.ago).each{ |s| s.update_attributes( :archived => true ) }
+    Server.active.where("\"servers\".updated_at <= ?", num_days.days.ago).each{ |s| s.update_attributes( :archived => true ) }
   end
 
   def self.expire(num_days = 14)
-    Server.unscoped.where("updated_at <= ?", num_days.days.ago).find_in_batches(:batch_size => 500) do |servers|
+    Server.unscoped.where("\"servers\".updated_at <= ?", num_days.days.ago).find_in_batches(:batch_size => 500) do |servers|
       servers.each do |server|
         server.destroy
       end
