@@ -19,6 +19,10 @@ class Client < ActiveRecord::Base
   validates_uniqueness_of :email
   validates_presence_of :email
 
+  def self.select_list
+    Client.where("\"clients\".email NOT LIKE 'sisland_%' AND \"clients\".email NOT LIKE '%@sequreisp.com'")
+  end
+
   def all_servers
     (servers + licenses.map{ |l| l.servers }.flatten).uniq
   end

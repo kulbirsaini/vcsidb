@@ -25,7 +25,7 @@
     <div class="span6">
       <div class="clearfix">
         <%= f.label :client_id %>
-        <div class="input"><%= f.select :client_id, Client.independent.map{ |c| [c.name_or_email, c.id] }, { :include_blank => 'Select Client' } %></div>
+        <div class="input"><%= f.select :client_id, Client.select_list.map{ |c| [c.name_or_email, c.id] }, { :include_blank => 'Select Client' } %></div>
       </div>
       <div class="clearfix">
         <%= f.label :key %>
