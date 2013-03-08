@@ -84,13 +84,13 @@ class Client < ActiveRecord::Base
       return Client.create(:email => email, :flag => true, :message => 'Client email set is matching with other_emails of more than one client.')
     end
 
-    # If client is using a different email than registered
-    license ||= License.where(:key => license_key).first
-    if license and license.client
-      client = license.client
-      client.update_attributes(:other_emails => client.append_email(email))
-      return client
-    end
+    ## If client is using a different email than registered
+    #license ||= License.where(:key => license_key).first
+    #if license and license.client
+    #  client = license.client
+    #  client.update_attributes(:other_emails => client.append_email(email))
+    #  return client
+    #end
 
     # If it's a totally new client, then we have no option!
     return Client.create(:email => email)
