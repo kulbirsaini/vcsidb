@@ -98,7 +98,11 @@ class Client < ActiveRecord::Base
       return Client.create(:email => email, :notes => "client_email : #{client.email} other_emails : #{client.other_emails} license : #{license.key}")
     else
       # If it's a totally new client, then we have no option!
-      return Client.create(:email => email)
+      if license
+        return Client.create(:email => email)
+      else
+        return Client.create(:email => email, :expired => true)
+      end
     end
   end
 end
