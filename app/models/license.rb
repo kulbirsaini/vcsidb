@@ -20,7 +20,11 @@ class License < ActiveRecord::Base
     email = (email || '').downcase
 
     license = License.where(:key => key).first
-    return license.expired if license
+    if license
+      return license.expired
+    else
+      return false
+    end
 
     return false unless email.present?
 
