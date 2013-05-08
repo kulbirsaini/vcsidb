@@ -15,6 +15,10 @@ class License < ActiveRecord::Base
     client.name_or_email
   end
 
+  def active
+    !expired
+  end
+
   def self.check_expiry(key, email)
     key = (key || '').first(40)
     email = (email || '').downcase
