@@ -11,7 +11,7 @@ class ServersController < ApplicationController
   # GET /servers
   # GET /servers.json
   def index
-    @servers = Server.includes(:license).includes(:client).includes(:parent).first(1000)
+    @servers = Server.includes(:license).includes(:client).includes(:parent).first(500)
 
     respond_to do |format|
       format.html # index.html.erb
