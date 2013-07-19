@@ -33,7 +33,8 @@ class LicensesController < ApplicationController
   end
 
   def expired
-    if License.check_expiry(params[:id], params[:e])
+    expiry = Rails.cache.fetch("license_#{params[:id]}_#{params[:e]}", :expires_in => 10.minutes) { License.check_expiry(params[:id], params[:e]) }
+    if expiry
       render :text => 'YES'
     else
       render :text => ''

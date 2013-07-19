@@ -8,6 +8,7 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'thin'
+gem 'dalli'
 
 group :development do
   gem 'unicorn'

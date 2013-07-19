@@ -4,6 +4,8 @@ vbell off
 autodetach on
 startup_message off
 altscreen on
+caption always
+caption string "%{kg}%-w%{wb}|%n %t|%{-}%+w"
 
 screen -t code 0 
 screen -t console 1 
