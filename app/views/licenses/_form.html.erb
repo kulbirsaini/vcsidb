@@ -1,7 +1,7 @@
 <%= javascript_tag do %>
   jQuery(document).ready(function(){
-    jQuery('#license_start_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:2014' });
-    jQuery('#license_renewal_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:2014' });
+    jQuery('#license_start_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:<%= Date.today.year + 1 %>' });
+    jQuery('#license_renewal_date').datepicker({ dateFormat: 'yy-mm-dd', changeYear: true, changeMonth: true, gotoCurrent: true, yearRange: '2008:<%= Date.today.year + 1 %>' });
   });
 <% end %>
 <%= form_for(@license) do |f| %>
