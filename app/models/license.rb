@@ -24,13 +24,9 @@ class License < ActiveRecord::Base
     email = (email || '').downcase
 
     license = License.where(:key => key).first
-    if license
-      return license.expired
-    else
-      return false
-    end
+    return license.expired if license
 
-    return false unless email.present?
+    return true if email.blank?
 
     c = Client.where(:email => email).first
     return c.expired if c
