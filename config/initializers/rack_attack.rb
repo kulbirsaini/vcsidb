@@ -2,7 +2,7 @@ limit = 1
 period = 60.seconds
 
 Rack::Attack.throttle("license_verification", limit: limit, period: period) do |req|
-  "#{req.ip}#{req.params['id']}#{req.params['e']}#{req.params['un']}" if req.post? && req.path == '/videoid'
+  "#{req.ip}#{req.params['id']}#{req.params['e']}" if req.post? && req.path == '/videoid'
 end
 
 Rack::Attack.throttle("server_report", limit: limit, period: period) do |req|
