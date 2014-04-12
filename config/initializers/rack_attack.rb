@@ -7,6 +7,7 @@ end
 
 Rack::Attack.throttle("server_report", limit: limit, period: period) do |req|
   req.post? && req.ip && req.path == '/servers'
+end
 
 Rack::Attack.throttled_response = lambda do |env|
   retry_after = env['rack.attack.match_data'][:period] rescue nil
