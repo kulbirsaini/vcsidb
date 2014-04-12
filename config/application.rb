@@ -47,5 +47,7 @@ module Csidb
 
     # For Heroku
     config.assets.initialize_on_precompile = false
+    # Throttle requests
+    config.middleware.use Rack::Attack
   end
 end
