@@ -23,6 +23,8 @@ class License < ActiveRecord::Base
     key = (key || '').first(40)
     email = (email || '').downcase
 
+    return false if email =~ /@sequreisp\.com$/ or email =~ /^sisland_/
+
     license = License.where(:key => key).first
     return license.expired if license
 
