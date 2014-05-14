@@ -67,6 +67,8 @@ class Client < ActiveRecord::Base
       reseller_email = SISLAND_CLIENT_EMAIL
     elsif email =~ SEQURE_REGEX
       reseller_email = SEQURE_CLIENT_EMAIL
+    elsif email =~ ARTICATECH_REGEX
+      reseller_email = ARTICATECH_CLIENT_EMAIL
     end
 
     if reseller_email
