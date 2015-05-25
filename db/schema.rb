@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.string   "name"
     t.text     "description"
     t.boolean  "disabled"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "clients", :force => true do |t|
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.text     "notes"
     t.boolean  "flag"
     t.text     "message"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   add_index "clients", ["created_at"], :name => "index_clients_on_created_at"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.string   "name"
     t.string   "code"
     t.boolean  "disabled"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "licenses", :force => true do |t|
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.integer  "num_servers"
     t.text     "notes"
     t.integer  "renewal_reminders"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   add_index "licenses", ["client_id"], :name => "index_licenses_on_client_id"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.string   "website"
     t.text     "description"
     t.boolean  "disabled"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "payments", :force => true do |t|
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.integer  "paid"
     t.integer  "payment_gateway_id"
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "servers", :force => true do |t|
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
     t.string   "system"
     t.string   "arch"
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.boolean  "archived"
     t.boolean  "authentic",  :default => false
     t.string   "uuid"
@@ -129,18 +129,18 @@ ActiveRecord::Schema.define(:version => 20121129141438) do
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "name"
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
