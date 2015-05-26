@@ -2,6 +2,12 @@
 
 [Videocache](https://github.com/kulbirsaini/videocache) Server Information Database or VCSIDB is not longer maintained or used. This app was used to track Videocache installations around the globe. All server setup with Videocache used to report to this app with software version, license keys etc. This app was also used to verify the validity of licenses for Videocache servers.
 
+## Related Projects
+
+* [Videocache](https://github.com/kulbirsaini/videocache)
+* [DocVC](https://github.com/kulbirsaini/docvc)
+* [Videocache-Ruby](https://github.com/kulbirsaini/videocache-ruby)
+
 ## About Me
 
 [Kulbir Saini](http://saini.co.in/), Senior Developer / Programmer, Hyderabad (INDIA)
