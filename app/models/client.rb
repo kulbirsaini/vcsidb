@@ -9,18 +9,18 @@ class Client < ActiveRecord::Base
   belongs_to :business_type
   belongs_to :payment_gateway
 
-  scope :active, where("\"clients\".expired IS NULL OR \"clients\".expired = ?", false)
+  scope :active, where("`clients`.expired IS NULL OR `clients`.expired = ?", false)
   scope :expired, where(:expired => true)
   scope :reseller, where(:reseller => true)
   scope :independent, where(:parent_id => nil)
 
-  default_scope :order => '"clients".created_at DESC'
+  default_scope :order => '`clients`.created_at DESC'
 
   validates_uniqueness_of :email
   validates_presence_of :email
 
   def self.select_list
-    Client.where("\"clients\".email NOT LIKE 'sisland_%' AND \"clients\".email NOT LIKE '%@sequreisp.com'")
+    Client.where("`clients`.email NOT LIKE 'sisland_%' AND `clients`.email NOT LIKE '%@sequreisp.com'")
   end
 
   def all_servers
@@ -77,7 +77,7 @@ class Client < ActiveRecord::Base
     end
 
     # Locate email in client.other_emails
-    clients = Client.where("\"clients\".other_emails LIKE ?", "%#{email}%").all
+    clients = Client.where("`clients`.other_emails LIKE ?", "%#{email}%").all
     if clients.size > 0
       return clients.first if clients.size == 1
 

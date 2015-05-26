@@ -8,8 +8,8 @@ class License < ActiveRecord::Base
   validates_length_of :key, :is => 40
   validates_uniqueness_of :key
 
-  scope :active, where("\"licenses\".expired IS NULL OR \"licenses\".expired = ?", false)
-  default_scope :order => '"licenses".created_at DESC'
+  scope :active, where("`licenses`.expired IS NULL OR `licenses`.expired = ?", false)
+  default_scope :order => '`licenses`.created_at DESC'
 
   def name
     client.name_or_email
@@ -33,7 +33,7 @@ class License < ActiveRecord::Base
     c = Client.where(:email => email).first
     return c.expired if c
 
-    clients = Client.where("\"clients\".other_emails LIKE ?", "%#{email}%").all
+    clients = Client.where("`clients`.other_emails LIKE ?", "%#{email}%").all
     return clients.first.expired if clients.size == 1
 
     message = "Email #{email} matched with other_emails in more than two clients when checking for expired clients."
