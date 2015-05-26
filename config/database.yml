@@ -1,0 +1,8 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: hascache_com
+  pool: 5
+  username: rails
+  password: dev
+  socket: /var/run/mysqld/mysqld.sock
